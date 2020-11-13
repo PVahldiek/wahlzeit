@@ -107,6 +107,11 @@ public class Photo extends DataObject {
 	/**
 	 * 
 	 */
+	protected Location location = null;
+
+	/**
+	 *
+	 */
 	public Photo() {
 		id = PhotoId.getNextId();
 		incWriteCount();
@@ -118,7 +123,6 @@ public class Photo extends DataObject {
 	 */
 	public Photo(PhotoId myId) {
 		id = myId;
-		
 		incWriteCount();
 	}
 	
@@ -476,6 +480,23 @@ public class Photo extends DataObject {
 	 */
 	public long getCreationTime() {
 		return creationTime;
+	}
+
+	/**
+	 *
+	 * @methodtype get
+	 */
+	public Location getLocation() {
+		return location;
+	}
+
+	/**
+	 *
+	 * @methodtype set
+	 */
+	public void setLocation(Location newLocation) {
+		location = newLocation;
+		incWriteCount();
 	}
 	
 }
