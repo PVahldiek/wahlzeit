@@ -1,5 +1,7 @@
 package org.wahlzeit.model;
 
+import java.util.Objects;
+
 public class Coordinate {
 
     /**
@@ -8,11 +10,6 @@ public class Coordinate {
     private double x;
     private double y;
     private double z;
-
-    /**
-     *
-     */
-    protected Location location;
 
     /**
      *
@@ -37,6 +34,25 @@ public class Coordinate {
      */
     public boolean isEqual(Coordinate coordinate) {
         return (x == coordinate.getX() && y == coordinate.getY() && z == coordinate.getZ()) ? true : false;
+    }
+
+    /**
+     * Forward equals to isEqual
+     * @methodtype boolean
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate that = (Coordinate) o;
+        return Double.compare(that.x, x) == 0 &&
+                Double.compare(that.y, y) == 0 &&
+                Double.compare(that.z, z) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, z);
     }
 
     /**
@@ -85,22 +101,6 @@ public class Coordinate {
      */
     public void setZ(double newZ) {
         z = newZ;
-    }
-
-    /**
-     *
-     * @methodtype get
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     *
-     * @methodtype set
-     */
-    public void setLocation(Location newLocation) {
-        location = newLocation;
     }
 
 }
