@@ -5,9 +5,9 @@ public class Coordinate {
     /**
      *
      */
-    protected double x;
-    protected double y;
-    protected double z;
+    private double x;
+    private double y;
+    private double z;
 
     /**
      *
