@@ -13,6 +13,7 @@ public class Coordinate {
 
     /**
      *
+     * @methodtype constructor
      */
     public Coordinate(double newX, double newY, double newZ) {
         x = newX;

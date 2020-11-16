@@ -9,6 +9,7 @@ public class Location {
 
     /**
      *
+     * @methodtype constructor
      */
     public Location(Coordinate newCoordinate) {
         coordinate = newCoordinate;
