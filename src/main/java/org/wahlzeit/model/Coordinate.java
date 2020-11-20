@@ -34,7 +34,7 @@ public class Coordinate {
      * @methodtype boolean
      */
     public boolean isEqual(Coordinate coordinate) {
-        return Double.compare(x, coordinate.getX()) == 0 && Double.compare(y, coordinate.getY()) == 0 && Double.compare(z, coordinate.getZ()) == 0 ? true : false;
+        return Double.compare(x, coordinate.getX()) == 0 && Double.compare(y, coordinate.getY()) == 0 && Double.compare(z, coordinate.getZ()) == 0;
     }
 
     /**
