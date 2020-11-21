@@ -6,7 +6,13 @@ import java.sql.SQLException;
 public class HolidayPhoto extends Photo{
 
     /**
+     * Holiday object
+     */
+    protected Holiday holiday;
+
+    /**
      *
+     * @methodtype constructor
      */
     public HolidayPhoto() {
         id = PhotoId.getNextId();
@@ -28,5 +34,23 @@ public class HolidayPhoto extends Photo{
      */
     public HolidayPhoto(ResultSet rset) throws SQLException {
         readFrom(rset);
+    }
+
+    /**
+     *
+     * @methodtype get
+     */
+    public Holiday getHoliday() {
+        return holiday;
+    }
+
+    /**
+     *
+     * @methodtype set
+     */
+    public void setHoliday(Holiday newHoliday){
+        if(newHoliday == null)
+            throw new IllegalArgumentException("Holiday must not be null");
+        holiday = newHoliday;
     }
 }
