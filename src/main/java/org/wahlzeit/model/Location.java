@@ -12,6 +12,8 @@ public class Location {
      * @methodtype constructor
      */
     public Location(Coordinate newCoordinate) {
+        if(newCoordinate == null)
+            throw new IllegalArgumentException("Coordinates must not be null");
         coordinate = newCoordinate;
     }
 
