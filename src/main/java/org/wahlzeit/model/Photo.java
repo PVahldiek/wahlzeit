@@ -106,8 +106,9 @@ public class Photo extends DataObject {
 	
 	/**
 	 * Location object, needs to be set in the UI f.e. (here we can ignore)
+	 * Currently every photo has this coordinate (to prevent Null-Pointer)
 	 */
-	protected Location location;
+	protected Location location = new Location(new Coordinate(3, 5, 7));
 
 	/**
 	 *
