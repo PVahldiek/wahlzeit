@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class HolidayPhoto extends Photo{
 
     /**
-     * Holiday object
+     * Holiday object - needs to be set for example in the UI (we can ignore, so it remains null)
      */
     protected Holiday holiday;
 
@@ -52,5 +52,20 @@ public class HolidayPhoto extends Photo{
         if(newHoliday == null)
             throw new IllegalArgumentException("Holiday must not be null");
         holiday = newHoliday;
+    }
+
+    //Adjust writeOn and readFrom for persistence
+    @Override
+    public void readFrom(ResultSet rset) throws SQLException {
+        super.readFrom(rset);
+        setHoliday(new Holiday(rset.getInt("holiday_days"), rset.getInt("holiday_costs"), rset.getString("country")));
+    }
+
+    @Override
+    public void writeOn(ResultSet rset) throws SQLException {
+        super.writeOn(rset);
+        rset.updateInt("holiday_days", getHoliday().getDays());
+        rset.updateInt("holiday_costs", getHoliday().getCosts());
+        rset.updateString("holiday_country", getHoliday().getCountry());
     }
 }

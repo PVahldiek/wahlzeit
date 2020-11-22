@@ -30,7 +30,10 @@ CREATE TABLE photos (
 	praise_sum integer,
 	no_votes integer,
 	creation_time bigint,
-	location text
+	location text,
+	holiday_days integer,
+	holiday_costs integer,
+	holiday_country text
 );
 
 CREATE TABLE tags (

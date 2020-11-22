@@ -105,9 +105,9 @@ public class Photo extends DataObject {
 	protected long creationTime = System.currentTimeMillis();
 	
 	/**
-	 * 
+	 * Location object, needs to be set in the UI f.e. (here we can ignore)
 	 */
-	protected Location location = new Location(new Coordinate(3, 5, 2));
+	protected Location location;
 
 	/**
 	 *
@@ -169,7 +169,7 @@ public class Photo extends DataObject {
 
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
-		String[] locationSplit = rset.getString("location").split("/");
+		String[] locationSplit = rset.getString("location").replace("(", "").replace(")", "").split("/");
 		location = new Location(new Coordinate(Double.parseDouble(locationSplit[0]), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
 	}
 	
@@ -191,7 +191,7 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);
-		rset.updateString("location", location.getCoordinate().getX() + "/" + location.getCoordinate().getY() + "/" + location.getCoordinate().getZ());
+		rset.updateString("location", "(" + location.getCoordinate().getX() + "/" + location.getCoordinate().getY() + "/" + location.getCoordinate().getZ() + ")");
 	}
 
 	/**
