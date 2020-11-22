@@ -58,7 +58,7 @@ public class HolidayPhoto extends Photo{
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
         super.readFrom(rset);
-        setHoliday(new Holiday(rset.getInt("holiday_days"), rset.getInt("holiday_costs"), rset.getString("country")));
+        setHoliday(new Holiday(rset.getInt("holiday_days"), rset.getInt("holiday_costs"), rset.getString("holiday_country")));
     }
 
     @Override
