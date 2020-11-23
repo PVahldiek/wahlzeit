@@ -7,8 +7,9 @@ public class HolidayPhoto extends Photo{
 
     /**
      * Holiday object - needs to be set for example in the UI (we can ignore, so it remains null)
+     * If we would initialize an object here, it will be displayed in the database (like that i tested that it works)
      */
-    protected Holiday holiday;
+    protected Holiday holiday = new Holiday(10, 3300, "Island");
 
     /**
      *
