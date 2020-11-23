@@ -39,4 +39,23 @@ public class CoordinateTest extends TestCase {
         Assert.assertTrue(c1.equals(c2));
         Assert.assertTrue(c2.equals(c1));
     }
+
+    public void testTestNotEquals() {
+        Coordinate c1 = new Coordinate(3, 6, 9);
+        Coordinate c2 = new Coordinate(3, 6, 10);
+        Assert.assertFalse(c1.equals(c2));
+        Assert.assertFalse(c2.equals(c1));
+    }
+
+    public void testHashCodeEquals(){
+        Coordinate c1 = new Coordinate(3, 6, 9);
+        Coordinate c2 = new Coordinate(3, 6, 9);
+        Assert.assertTrue(c1.hashCode() == c2.hashCode());
+    }
+
+    public void testHashCodeNotEquals(){
+        Coordinate c1 = new Coordinate(3, 6, 9);
+        Coordinate c2 = new Coordinate(3, 6, 10);
+        Assert.assertFalse(c1.hashCode() == c2.hashCode());
+    }
 }
