@@ -1,36 +1,38 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.model.coordinates.CartesianCoordinate;
+
 public class Location {
 
     /**
      *
      */
-    protected Coordinate coordinate;
+    protected CartesianCoordinate cartesianCoordinate;
 
     /**
      *
      * @methodtype constructor
      */
-    public Location(Coordinate newCoordinate) {
-        if(newCoordinate == null)
+    public Location(CartesianCoordinate newCartesianCoordinate) {
+        if(newCartesianCoordinate == null)
             throw new IllegalArgumentException("Coordinates must not be null");
-        coordinate = newCoordinate;
+        cartesianCoordinate = newCartesianCoordinate;
     }
 
     /**
      *
      * @methodtype get
      */
-    public Coordinate getCoordinate() {
-        return coordinate;
+    public CartesianCoordinate getCartesianCoordinate() {
+        return cartesianCoordinate;
     }
 
     /**
      *
      * @methodtype set
      */
-    public void setCoordinate(Coordinate newCoordinate) {
-        coordinate = newCoordinate;
+    public void setCartesianCoordinate(CartesianCoordinate newCartesianCoordinate) {
+        cartesianCoordinate = newCartesianCoordinate;
     }
 
 }

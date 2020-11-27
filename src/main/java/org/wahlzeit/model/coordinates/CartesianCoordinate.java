@@ -1,8 +1,8 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinates;
 
 import java.util.Objects;
 
-public class Coordinate {
+public class CartesianCoordinate implements Coordinate{
 
     /**
      *
@@ -15,7 +15,7 @@ public class Coordinate {
      *
      * @methodtype constructor
      */
-    public Coordinate(double newX, double newY, double newZ) {
+    public CartesianCoordinate(double newX, double newY, double newZ) {
         x = newX;
         y = newY;
         z = newZ;
@@ -25,16 +25,16 @@ public class Coordinate {
      * Returns cartesian distance formula
      * @methodtype get
      */
-    public double getDistance(Coordinate coordinate) {
-        return Math.sqrt(Math.pow((x - coordinate.getX()), 2) + Math.pow(y - coordinate.getY(), 2) + Math.pow(z - coordinate.getZ(), 2));
+    public double getDistance(CartesianCoordinate cartesianCoordinate) {
+        return Math.sqrt(Math.pow((x - cartesianCoordinate.getX()), 2) + Math.pow(y - cartesianCoordinate.getY(), 2) + Math.pow(z - cartesianCoordinate.getZ(), 2));
     }
 
     /**
      * Checks if two coordinates are equal
      * @methodtype boolean
      */
-    public boolean isEqual(Coordinate coordinate) {
-        return Double.compare(x, coordinate.getX()) == 0 && Double.compare(y, coordinate.getY()) == 0 && Double.compare(z, coordinate.getZ()) == 0;
+    public boolean isEqual(CartesianCoordinate cartesianCoordinate) {
+        return Double.compare(x, cartesianCoordinate.getX()) == 0 && Double.compare(y, cartesianCoordinate.getY()) == 0 && Double.compare(z, cartesianCoordinate.getZ()) == 0;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Coordinate {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Coordinate that = (Coordinate) o;
+        CartesianCoordinate that = (CartesianCoordinate) o;
         return isEqual(that);
     }
 
@@ -102,4 +102,28 @@ public class Coordinate {
         z = newZ;
     }
 
+    @Override
+    public CartesianCoordinate asCartesianCoordinate() {
+        return null;
+    }
+
+    @Override
+    public double getCartesianDistance(Coordinate coordinate) {
+        return 0;
+    }
+
+    @Override
+    public SphericCoordinate asSphericCoordinate() {
+        return null;
+    }
+
+    @Override
+    public double getCentralAngle(Coordinate coordinate) {
+        return 0;
+    }
+
+    @Override
+    public boolean isEqual(Coordinate coordinate) {
+        return false;
+    }
 }
