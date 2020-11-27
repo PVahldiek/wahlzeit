@@ -45,4 +45,52 @@ public class SphericCoordinate implements Coordinate{
     public boolean isEqual(Coordinate coordinate) {
         return false;
     }
+
+    /**
+     *
+     * @methodtype set
+     */
+    public void setPhi(double newPhi) {
+        phi = newPhi;
+    }
+
+    /**
+     *
+     * @methodtype get
+     */
+    public double getPhi() {
+        return phi;
+    }
+
+    /**
+     *
+     * @methodtype set
+     */
+    public void setTheta(double newTheta) {
+        theta = newTheta;
+    }
+
+    /**
+     *
+     * @methodtype get
+     */
+    public double getTheta() {
+        return theta;
+    }
+
+    /**
+     *
+     * @methodtype set
+     */
+    public void setRadius(double newRadius) {
+        radius = newRadius;
+    }
+
+    /**
+     *
+     * @methodtype get
+     */
+    public double getRadius() {
+        return radius;
+    }
 }

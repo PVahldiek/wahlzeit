@@ -1,8 +1,9 @@
-package org.wahlzeit.model;
+package org.wahlzeit.model.coordinates;
 
 import junit.framework.TestCase;
 import org.junit.Assert;
 import org.wahlzeit.model.coordinates.CartesianCoordinate;
+import org.wahlzeit.model.coordinates.SphericCoordinate;
 
 public class CartesianCoordinateTest extends TestCase {
 
@@ -58,5 +59,13 @@ public class CartesianCoordinateTest extends TestCase {
         CartesianCoordinate c1 = new CartesianCoordinate(3, 6, 9);
         CartesianCoordinate c2 = new CartesianCoordinate(3, 6, 10);
         Assert.assertFalse(c1.hashCode() == c2.hashCode());
+    }
+
+    public void testAsSphericCoordinate(){
+        CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
+        SphericCoordinate p1 = c1.asSphericCoordinate();
+        Assert.assertTrue(p1.getRadius() == 1);
+        Assert.assertTrue(p1.getTheta() == Math.PI/2);
+        Assert.assertTrue(p1.getPhi() == 0);
     }
 }
