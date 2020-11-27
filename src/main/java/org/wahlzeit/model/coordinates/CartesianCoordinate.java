@@ -128,6 +128,6 @@ public class CartesianCoordinate implements Coordinate{
 
     @Override
     public boolean isEqual(Coordinate coordinate) {
-        return false;
+        return isEqual(coordinate.asCartesianCoordinate());
     }
 }
