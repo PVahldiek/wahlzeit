@@ -104,17 +104,21 @@ public class CartesianCoordinate implements Coordinate{
 
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
-        return null;
+        return this;
     }
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        return 0;
+        return getDistance(coordinate.asCartesianCoordinate());
     }
 
     @Override
     public SphericCoordinate asSphericCoordinate() {
-        return null;
+        double phi, theta, radius;
+        phi = y >= 0 ? Math.acos(x/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2))) : 2 * Math.PI - Math.acos(x/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2)));
+        theta = Math.PI/2 - Math.atan(z/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2)));
+        radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        return new SphericCoordinate(phi, theta, radius);
     }
 
     @Override
