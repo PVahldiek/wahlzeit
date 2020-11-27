@@ -38,7 +38,11 @@ public class SphericCoordinate implements Coordinate{
 
     @Override
     public double getCentralAngle(Coordinate coordinate) {
-        return 0;
+        SphericCoordinate p1 = coordinate.asSphericCoordinate();
+        if(Double.compare(radius, p1.getRadius()) != 0){
+            throw new IllegalStateException("Radius must be equal for calculating distance");
+        }
+        return radius * Math.acos(Math.sin(phi) * Math.sin(p1.getPhi()) + Math.cos(phi) * Math.cos(p1.getPhi()) * Math.cos(p1.getTheta() - theta));
     }
 
     @Override

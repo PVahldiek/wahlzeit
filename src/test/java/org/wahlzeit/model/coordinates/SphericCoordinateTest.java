@@ -21,6 +21,11 @@ public class SphericCoordinateTest extends TestCase {
     }
 
     public void testGetCentralAngle() {
+        SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
+        SphericCoordinate p2 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 1);
+        double distance = p1.getCentralAngle(p2);
+        System.out.println(distance);
+        Assert.assertTrue(distance == Math.PI/2);
     }
 
     public void testIsEqual() {
