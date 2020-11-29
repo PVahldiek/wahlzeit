@@ -24,6 +24,7 @@ import java.sql.*;
 import java.net.*;
 
 import org.wahlzeit.model.coordinates.CartesianCoordinate;
+import org.wahlzeit.model.coordinates.SphericCoordinate;
 import org.wahlzeit.services.*;
 import org.wahlzeit.utils.*;
 
@@ -172,7 +173,13 @@ public class Photo extends DataObject {
 		maxPhotoSize = PhotoSize.getFromWidthHeight(width, height);
 
 		String[] locationSplit = rset.getString("location").replace("(", "").replace(")", "").split("/");
-		location = new Location(new CartesianCoordinate(Double.parseDouble(locationSplit[0]), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
+		if(locationSplit[0].startsWith("s")){
+			// Spheric
+			location = new Location(new SphericCoordinate(Double.parseDouble(locationSplit[0].replace("s", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
+		} else{
+			// Cartesian
+			location = new Location(new CartesianCoordinate(Double.parseDouble(locationSplit[0].replace("c", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
+		}
 	}
 	
 	/**
@@ -193,7 +200,12 @@ public class Photo extends DataObject {
 		rset.updateInt("praise_sum", praiseSum);
 		rset.updateInt("no_votes", noVotes);
 		rset.updateLong("creation_time", creationTime);
-		rset.updateString("location", "(" + location.getCartesianCoordinate().getX() + "/" + location.getCartesianCoordinate().getY() + "/" + location.getCartesianCoordinate().getZ() + ")");
+		// Saves spheric location as s(x/y/z) and cartesian as c(x/y/z)
+		if(location.getCoordinate() instanceof SphericCoordinate){
+			rset.updateString("location", "s(" + location.getCoordinate().asSphericCoordinate().getPhi() + "/" + location.getCoordinate().asSphericCoordinate().getTheta() + "/" + location.getCoordinate().asSphericCoordinate().getRadius() + ")");
+		} else{
+			rset.updateString("location", "c(" + location.getCoordinate().asCartesianCoordinate().getX() + "/" + location.getCoordinate().asCartesianCoordinate().getY() + "/" + location.getCoordinate().asCartesianCoordinate().getZ() + ")");
+		}
 	}
 
 	/**

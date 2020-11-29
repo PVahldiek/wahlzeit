@@ -1,12 +1,15 @@
 package org.wahlzeit.model;
 
 import junit.framework.TestCase;
+import org.wahlzeit.model.coordinates.Coordinate;
+import org.wahlzeit.model.coordinates.SphericCoordinate;
 
 public class LocationTest extends TestCase {
 
     public void testShouldThrowException() {
         try {
-            Location location = new Location(null);
+            SphericCoordinate c = null;
+            Location location = new Location(c);
             fail();
         }
         catch (IllegalArgumentException e){
