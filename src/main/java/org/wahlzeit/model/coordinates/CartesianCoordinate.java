@@ -33,8 +33,8 @@ public class CartesianCoordinate implements Coordinate{
      * Checks if two coordinates are equal
      * @methodtype boolean
      */
-    public boolean isEqual(CartesianCoordinate cartesianCoordinate) {
-        return Double.compare(x, cartesianCoordinate.getX()) == 0 && Double.compare(y, cartesianCoordinate.getY()) == 0 && Double.compare(z, cartesianCoordinate.getZ()) == 0;
+    public boolean isEqual(CartesianCoordinate cartesianCoordinate){
+        return (Math.abs(x - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(y - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(z - cartesianCoordinate.getZ()) < 1E-7);
     }
 
     /**

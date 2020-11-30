@@ -2,8 +2,6 @@ package org.wahlzeit.model.coordinates;
 
 import junit.framework.TestCase;
 import org.junit.Assert;
-import org.wahlzeit.model.coordinates.CartesianCoordinate;
-import org.wahlzeit.model.coordinates.SphericCoordinate;
 
 public class CartesianCoordinateTest extends TestCase {
 

@@ -53,7 +53,7 @@ public class SphericCoordinate implements Coordinate{
     }
 
     public boolean isEqual(SphericCoordinate sphericCoordinate){
-        return Double.compare(phi, sphericCoordinate.getPhi()) == 0 && Double.compare(theta, sphericCoordinate.getTheta()) == 0 && Double.compare(radius, sphericCoordinate.getRadius()) == 0;
+        return (Math.abs(phi - sphericCoordinate.getPhi()) < 1E-7) && (Math.abs(theta - sphericCoordinate.getTheta()) < 1E-7) && (Math.abs(radius - sphericCoordinate.getRadius()) < 1E-7);
     }
 
     @Override
@@ -61,9 +61,7 @@ public class SphericCoordinate implements Coordinate{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SphericCoordinate that = (SphericCoordinate) o;
-        return Double.compare(that.phi, phi) == 0 &&
-                Double.compare(that.theta, theta) == 0 &&
-                Double.compare(that.radius, radius) == 0;
+        return isEqual(that);
     }
 
     @Override
