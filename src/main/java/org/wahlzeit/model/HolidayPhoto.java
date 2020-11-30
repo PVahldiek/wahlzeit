@@ -52,19 +52,25 @@ public class HolidayPhoto extends Photo{
      */
     public void setHoliday(Holiday newHoliday){
         if(newHoliday == null)
-            throw new IllegalArgumentException("Holiday must not be null");
+            throw new NullPointerException("Holiday must not be null");
         holiday = newHoliday;
     }
 
     //Adjust writeOn and readFrom for persistence
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
+        if(rset == null){
+            throw new NullPointerException("ResultSet must not be null");
+        }
         super.readFrom(rset);
         setHoliday(new Holiday(rset.getInt("holiday_days"), rset.getInt("holiday_costs"), rset.getString("holiday_country")));
     }
 
     @Override
     public void writeOn(ResultSet rset) throws SQLException {
+        if(rset == null){
+            throw new NullPointerException("ResultSet must not be null");
+        }
         super.writeOn(rset);
         rset.updateInt("holiday_days", getHoliday().getDays());
         rset.updateInt("holiday_costs", getHoliday().getCosts());
