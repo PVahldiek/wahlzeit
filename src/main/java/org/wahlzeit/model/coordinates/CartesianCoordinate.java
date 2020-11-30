@@ -114,10 +114,19 @@ public class CartesianCoordinate implements Coordinate{
 
     @Override
     public SphericCoordinate asSphericCoordinate() {
-        double phi, theta, radius;
-        phi = y >= 0 ? Math.acos(x/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2))) : 2 * Math.PI - Math.acos(x/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2)));
-        theta = Math.PI/2 - Math.atan(z/(Math.sqrt(Math.pow(x, 2)) + Math.pow(y, 2)));
+        double phi = 0, theta = 0, radius = 0;
+        // Changed to formula from https://de.wikipedia.org/wiki/Kugelkoordinaten
         radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        theta = Math.acos(z/radius);
+        if(x > 0){
+            phi = Math.atan(y/x);
+        } else if(x == 0){
+            phi = Math.signum(y) * Math.PI / 2;
+        } else if(x < 0 && y >= 0){
+            phi = Math.atan(y/x) + Math.PI;
+        } else if(x < 0 && y < 0){
+            phi = Math.atan(y/x) - Math.PI;
+        }
         return new SphericCoordinate(phi, theta, radius);
     }
 
