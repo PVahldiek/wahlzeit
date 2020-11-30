@@ -26,6 +26,8 @@ public class CartesianCoordinate implements Coordinate{
      * @methodtype get
      */
     public double getDistance(CartesianCoordinate cartesianCoordinate) {
+        if(cartesianCoordinate == null)
+            throw new NullPointerException("cartesianCoordinate must not be null");
         return Math.sqrt(Math.pow((x - cartesianCoordinate.getX()), 2) + Math.pow(y - cartesianCoordinate.getY(), 2) + Math.pow(z - cartesianCoordinate.getZ(), 2));
     }
 
@@ -34,6 +36,8 @@ public class CartesianCoordinate implements Coordinate{
      * @methodtype boolean
      */
     public boolean isEqual(CartesianCoordinate cartesianCoordinate){
+        if(cartesianCoordinate == null)
+            throw new NullPointerException("cartesianCoordinate must not be null");
         return (Math.abs(x - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(y - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(z - cartesianCoordinate.getZ()) < 1E-7);
     }
 
@@ -109,6 +113,8 @@ public class CartesianCoordinate implements Coordinate{
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         return getDistance(coordinate.asCartesianCoordinate());
     }
 
@@ -132,11 +138,15 @@ public class CartesianCoordinate implements Coordinate{
 
     @Override
     public double getCentralAngle(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         return this.asSphericCoordinate().getCentralAngle(coordinate.asSphericCoordinate());
     }
 
     @Override
     public boolean isEqual(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         return isEqual(coordinate.asCartesianCoordinate());
     }
 }

@@ -30,6 +30,8 @@ public class SphericCoordinate implements Coordinate{
 
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         return this.asCartesianCoordinate().getCartesianDistance(coordinate);
     }
 
@@ -40,6 +42,8 @@ public class SphericCoordinate implements Coordinate{
 
     @Override
     public double getCentralAngle(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         SphericCoordinate p1 = coordinate.asSphericCoordinate();
         if(Double.compare(radius, p1.getRadius()) != 0){
             throw new IllegalStateException("Radius must be equal for calculating distance");
@@ -49,10 +53,14 @@ public class SphericCoordinate implements Coordinate{
 
     @Override
     public boolean isEqual(Coordinate coordinate) {
+        if(coordinate == null)
+            throw new NullPointerException("coordinate must not be null");
         return isEqual(coordinate.asSphericCoordinate());
     }
 
     public boolean isEqual(SphericCoordinate sphericCoordinate){
+        if(sphericCoordinate == null)
+            throw new NullPointerException("sphericCoordinate must not be null");
         return (Math.abs(phi - sphericCoordinate.getPhi()) < 1E-7) && (Math.abs(theta - sphericCoordinate.getTheta()) < 1E-7) && (Math.abs(radius - sphericCoordinate.getRadius()) < 1E-7);
     }
 
