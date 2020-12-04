@@ -45,6 +45,6 @@ public abstract class AbstractCoordinate implements Coordinate{
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
         if(cartesianCoordinate == null)
             throw new NullPointerException("cartesianCoordinate must not be null");
-        return (Math.abs(thisCoordinate.getX() - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(thisCoordinate.getX() - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(thisCoordinate.getZ() - cartesianCoordinate.getZ()) < 1E-7);
+        return (Math.abs(thisCoordinate.getX() - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(thisCoordinate.getY() - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(thisCoordinate.getZ() - cartesianCoordinate.getZ()) < 1E-7);
     }
 }

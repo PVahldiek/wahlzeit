@@ -1,7 +1,6 @@
 package org.wahlzeit.model.coordinates;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.internal.matchers.Null;
 
 public class CartesianCoordinateTest {
 
