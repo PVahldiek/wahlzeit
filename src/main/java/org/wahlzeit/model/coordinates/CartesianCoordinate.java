@@ -2,7 +2,7 @@ package org.wahlzeit.model.coordinates;
 
 import java.util.Objects;
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate{
 
     /**
      *
