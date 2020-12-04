@@ -22,23 +22,36 @@ public class CartesianCoordinate extends AbstractCoordinate{
     }
 
     /**
-     * Returns cartesian distance formula
-     * @methodtype get
+     * returns CartesianCoordinate
      */
-    public double getDistance(CartesianCoordinate cartesianCoordinate) {
-        if(cartesianCoordinate == null)
-            throw new NullPointerException("cartesianCoordinate must not be null");
-        return Math.sqrt(Math.pow((x - cartesianCoordinate.getX()), 2) + Math.pow(y - cartesianCoordinate.getY(), 2) + Math.pow(z - cartesianCoordinate.getZ(), 2));
+    @Override
+    public CartesianCoordinate asCartesianCoordinate() {
+        return this;
     }
 
     /**
-     * Checks if two coordinates are equal
-     * @methodtype boolean
+     * converts a cartesianCoordinate into a sphericCoordinate
+     * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
      */
-    public boolean isEqual(CartesianCoordinate cartesianCoordinate){
-        if(cartesianCoordinate == null)
-            throw new NullPointerException("cartesianCoordinate must not be null");
-        return (Math.abs(x - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(y - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(z - cartesianCoordinate.getZ()) < 1E-7);
+    @Override
+    public SphericCoordinate asSphericCoordinate() {
+        double phi = 0, theta = 0, radius = 0;
+        // Changed to formula from https://de.wikipedia.org/wiki/Kugelkoordinaten
+        radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
+        // Check if radius == 0
+        if(radius == 0)
+            throw new IllegalStateException("Radius equals zero, can't continue conversion");
+        theta = Math.acos(z/radius);
+        if(x > 0){
+            phi = Math.atan(y/x);
+        } else if(x == 0){
+            phi = Math.signum(y) * Math.PI / 2;
+        } else if(x < 0 && y >= 0){
+            phi = Math.atan(y/x) + Math.PI;
+        } else if(x < 0 && y < 0){
+            phi = Math.atan(y/x) - Math.PI;
+        }
+        return new SphericCoordinate(phi, theta, radius);
     }
 
     /**
@@ -110,68 +123,5 @@ public class CartesianCoordinate extends AbstractCoordinate{
         z = newZ;
     }
 
-    /**
-     * returns CartesianCoordinate
-     */
-    @Override
-    public CartesianCoordinate asCartesianCoordinate() {
-        return this;
-    }
 
-    /**
-     * calculates CartesianDistance with getDistance as Helper
-     */
-    @Override
-    public double getCartesianDistance(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new NullPointerException("coordinate must not be null");
-        return getDistance(coordinate.asCartesianCoordinate());
-    }
-
-    /**
-     * converts a cartesianCoordinate into a sphericCoordinate
-     * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
-     */
-    @Override
-    public SphericCoordinate asSphericCoordinate() {
-        double phi = 0, theta = 0, radius = 0;
-        // Changed to formula from https://de.wikipedia.org/wiki/Kugelkoordinaten
-        radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        // Check if radius == 0
-        if(radius == 0)
-            throw new IllegalStateException("Radius equals zero, can't continue conversion");
-        theta = Math.acos(z/radius);
-        if(x > 0){
-            phi = Math.atan(y/x);
-        } else if(x == 0){
-            phi = Math.signum(y) * Math.PI / 2;
-        } else if(x < 0 && y >= 0){
-            phi = Math.atan(y/x) + Math.PI;
-        } else if(x < 0 && y < 0){
-            phi = Math.atan(y/x) - Math.PI;
-        }
-        return new SphericCoordinate(phi, theta, radius);
-    }
-
-    /**
-     * calculates the centralAngle of a cartesianCoordinate,
-     * using the conversion to a sphericCoordinate
-     */
-    @Override
-    public double getCentralAngle(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new NullPointerException("coordinate must not be null");
-        return this.asSphericCoordinate().getCentralAngle(coordinate.asSphericCoordinate());
-    }
-
-    /**
-     * equal-Check for cartesianCoordinates
-     * @methodtype boolean
-     */
-    @Override
-    public boolean isEqual(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new NullPointerException("coordinate must not be null");
-        return isEqual(coordinate.asCartesianCoordinate());
-    }
 }
