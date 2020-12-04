@@ -9,15 +9,15 @@ public class CartesianCoordinateTest {
     public void testGetDistance() {
         CartesianCoordinate c1 = new CartesianCoordinate(3, 6, 9);
         CartesianCoordinate c2 = new CartesianCoordinate(3, 6, 10);
-        Assert.assertTrue(c1.getDistance(c2) == 1);
+        Assert.assertTrue(c1.getCartesianDistance(c2) == 1);
 
         CartesianCoordinate c3 = new CartesianCoordinate(3, 6, 9);
         CartesianCoordinate c4 = new CartesianCoordinate(3, 7, 9);
-        Assert.assertTrue(c3.getDistance(c4) == 1);
+        Assert.assertTrue(c3.getCartesianDistance(c4) == 1);
 
         CartesianCoordinate c5 = new CartesianCoordinate(3, 6, 9);
         CartesianCoordinate c6 = new CartesianCoordinate(4, 6, 9);
-        Assert.assertTrue(c5.getDistance(c6) == 1);
+        Assert.assertTrue(c5.getCartesianDistance(c6) == 1);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class CartesianCoordinateTest {
     @Test(expected = NullPointerException.class)
     public void testGetDistanceShouldThrowNullPointer(){
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
-        c1.getDistance(null);
+        c1.getCartesianDistance(null);
     }
 
     @Test(expected = NullPointerException.class)
