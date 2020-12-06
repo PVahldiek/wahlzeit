@@ -74,6 +74,12 @@ public class CartesianCoordinateTest {
         Assert.assertTrue(p1.getPhi() == 0);
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void testAsSphericCoordinateShouldThrowIllegalStateException(){
+        CartesianCoordinate p1 = new CartesianCoordinate(0, 0, 0 );
+        p1.asSphericCoordinate();
+    }
+
     @Test(expected = NullPointerException.class)
     public void testGetDistanceShouldThrowNullPointer(){
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
