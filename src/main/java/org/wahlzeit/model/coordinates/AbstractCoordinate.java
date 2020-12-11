@@ -13,7 +13,9 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate(){
+        assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = doAsCartesianCoordinate();
+        assertClassInvariants();
         return cartesianCoordinate;
     }
 
@@ -42,7 +44,9 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public SphericCoordinate asSphericCoordinate(){
+        assertClassInvariants();
         SphericCoordinate sphericCoordinate = doAsSphericCoordinate();
+        assertClassInvariants();
         return sphericCoordinate;
     }
 
@@ -98,4 +102,9 @@ public abstract class AbstractCoordinate implements Coordinate{
         if(Double.isNaN(number))
             throw new IllegalArgumentException("Double must not be NaN");
     }
+
+    /**
+     * Class Invariants for subclasses
+     */
+    protected abstract void assertClassInvariants();
 }

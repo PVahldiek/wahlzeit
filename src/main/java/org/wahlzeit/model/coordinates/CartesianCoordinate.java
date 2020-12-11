@@ -88,7 +88,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setX(double newX) {
+        assertClassInvariants();
         x = newX;
+        assertClassInvariants();
     }
 
     /**
@@ -104,7 +106,9 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setY(double newY) {
+        assertClassInvariants();
         y = newY;
+        assertClassInvariants();
     }
 
     /**
@@ -120,8 +124,16 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * @methodtype set
      */
     public void setZ(double newZ) {
+        assertClassInvariants();
         z = newZ;
+        assertClassInvariants();
     }
 
-
+    /**
+     * Class Invariants for CartesianCoordinate (not NaN)
+     */
+    @Override
+    protected void assertClassInvariants() {
+        assert !Double.isNaN(x) && !Double.isNaN(y) && !Double.isNaN(z);
+    }
 }
