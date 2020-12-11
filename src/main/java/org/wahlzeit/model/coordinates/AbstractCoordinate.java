@@ -30,7 +30,9 @@ public abstract class AbstractCoordinate implements Coordinate{
         assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
-        return Math.sqrt(Math.pow((thisCoordinate.getX() - cartesianCoordinate.getX()), 2) + Math.pow(thisCoordinate.getY() - cartesianCoordinate.getY(), 2) + Math.pow(thisCoordinate.getZ() - cartesianCoordinate.getZ(), 2));
+        double result = Math.sqrt(Math.pow((thisCoordinate.getX() - cartesianCoordinate.getX()), 2) + Math.pow(thisCoordinate.getY() - cartesianCoordinate.getY(), 2) + Math.pow(thisCoordinate.getZ() - cartesianCoordinate.getZ(), 2));
+        assertIsNonNaN(result);
+        return result;
     }
 
     /**
@@ -61,7 +63,9 @@ public abstract class AbstractCoordinate implements Coordinate{
         if(Double.compare(thisCoordinate.getRadius(), sphericCoordinate.getRadius()) != 0)
             throw new IllegalStateException("Radius must be equal for calculating distance");
 
-        return thisCoordinate.getRadius() * Math.acos(Math.sin(thisCoordinate.getPhi()) * Math.sin(sphericCoordinate.getPhi()) + Math.cos(thisCoordinate.getPhi()) * Math.cos(sphericCoordinate.getPhi()) * Math.cos(sphericCoordinate.getTheta() - thisCoordinate.getTheta()));
+        double result = thisCoordinate.getRadius() * Math.acos(Math.sin(thisCoordinate.getPhi()) * Math.sin(sphericCoordinate.getPhi()) + Math.cos(thisCoordinate.getPhi()) * Math.cos(sphericCoordinate.getPhi()) * Math.cos(sphericCoordinate.getTheta() - thisCoordinate.getTheta()));
+        assertIsNonNaN(result);
+        return result;
     }
 
     /**
@@ -78,10 +82,20 @@ public abstract class AbstractCoordinate implements Coordinate{
     }
 
     /**
-     * Generic precondition
+     * Generic pre condition
      * @param object
      */
     protected void assertIsNonNullArgument(Object object){
-        assert object != null;
+        if(object == null)
+            throw new IllegalArgumentException("Object must be not null");
+    }
+
+    /**
+     * Generic post condition
+     * @param number
+     */
+    protected void assertIsNonNaN(double number){
+        if(Double.isNaN(number))
+            throw new IllegalArgumentException("Double must not be NaN");
     }
 }
