@@ -20,15 +20,14 @@ public abstract class AbstractCoordinate implements Coordinate{
     /**
      * Helper method which is implemented in subclass for maximal redundancy
      */
-    public abstract CartesianCoordinate doAsCartesianCoordinate();
+    protected abstract CartesianCoordinate doAsCartesianCoordinate();
 
     /**
      * calculates CartesianDistance
      */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new NullPointerException("coordinate must not be null");
+        assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
         return Math.sqrt(Math.pow((thisCoordinate.getX() - cartesianCoordinate.getX()), 2) + Math.pow(thisCoordinate.getY() - cartesianCoordinate.getY(), 2) + Math.pow(thisCoordinate.getZ() - cartesianCoordinate.getZ(), 2));
@@ -48,7 +47,7 @@ public abstract class AbstractCoordinate implements Coordinate{
     /**
      * Helper method which is implemented in subclass for maximal redundancy
      */
-    public abstract SphericCoordinate doAsSphericCoordinate();
+    protected abstract SphericCoordinate doAsSphericCoordinate();
 
     /**
      * Calculates the centralAngle using the great-circle-distance formula
@@ -56,8 +55,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
-        if(coordinate == null)
-            throw new NullPointerException("coordinate must not be null");
+        assertIsNonNullArgument(coordinate);
         SphericCoordinate thisCoordinate = this.asSphericCoordinate();
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
         if(Double.compare(thisCoordinate.getRadius(), sphericCoordinate.getRadius()) != 0)
@@ -73,10 +71,17 @@ public abstract class AbstractCoordinate implements Coordinate{
      */
     @Override
     public boolean isEqual(Coordinate coordinate){
+        assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
-        if(cartesianCoordinate == null)
-            throw new NullPointerException("cartesianCoordinate must not be null");
         return (Math.abs(thisCoordinate.getX() - cartesianCoordinate.getX()) < 1E-7) && (Math.abs(thisCoordinate.getY() - cartesianCoordinate.getY()) < 1E-7) && (Math.abs(thisCoordinate.getZ() - cartesianCoordinate.getZ()) < 1E-7);
+    }
+
+    /**
+     * Generic precondition
+     * @param object
+     */
+    protected void assertIsNonNullArgument(Object object){
+        assert object != null;
     }
 }
