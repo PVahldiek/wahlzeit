@@ -12,16 +12,15 @@ public abstract class AbstractCoordinate implements Coordinate{
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
      */
     @Override
-    public CartesianCoordinate asCartesianCoordinate() {
-        if(this instanceof CartesianCoordinate)
-            return (CartesianCoordinate) this;
-        SphericCoordinate sphericCoordinate = this.asSphericCoordinate();
-        double phi = sphericCoordinate.getPhi(), theta = sphericCoordinate.getTheta(), radius = sphericCoordinate.getRadius();
-        double x = radius * Math.sin(theta) * Math.cos(phi);
-        double y = radius * Math.sin(theta) * Math.sin(phi);
-        double z = radius * Math.cos(theta);
-        return new CartesianCoordinate(x, y, z);
+    public CartesianCoordinate asCartesianCoordinate(){
+        CartesianCoordinate cartesianCoordinate = doAsCartesianCoordinate();
+        return cartesianCoordinate;
     }
+
+    /**
+     * Helper method which is implemented in subclass for maximal redundancy
+     */
+    public abstract CartesianCoordinate doAsCartesianCoordinate();
 
     /**
      * calculates CartesianDistance
@@ -41,28 +40,15 @@ public abstract class AbstractCoordinate implements Coordinate{
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
      */
     @Override
-    public SphericCoordinate asSphericCoordinate() {
-        if(this instanceof SphericCoordinate)
-            return (SphericCoordinate) this;
-        CartesianCoordinate cartesianCoordinate = this.asCartesianCoordinate();
-        double x = cartesianCoordinate.getX(), y = cartesianCoordinate.getY(), z = cartesianCoordinate.getZ();
-        double phi = 0, theta = 0, radius = 0;
-        radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
-        // Check if radius == 0
-        if(radius == 0)
-            throw new IllegalStateException("Radius equals zero, can't continue conversion");
-        theta = Math.acos(z/radius);
-        if(x > 0){
-            phi = Math.atan(y/x);
-        } else if(x == 0){
-            phi = Math.signum(y) * Math.PI / 2;
-        } else if(x < 0 && y >= 0){
-            phi = Math.atan(y/x) + Math.PI;
-        } else if(x < 0 && y < 0){
-            phi = Math.atan(y/x) - Math.PI;
-        }
-        return new SphericCoordinate(phi, theta, radius);
+    public SphericCoordinate asSphericCoordinate(){
+        SphericCoordinate sphericCoordinate = doAsSphericCoordinate();
+        return sphericCoordinate;
     }
+
+    /**
+     * Helper method which is implemented in subclass for maximal redundancy
+     */
+    public abstract SphericCoordinate doAsSphericCoordinate();
 
     /**
      * Calculates the centralAngle using the great-circle-distance formula
