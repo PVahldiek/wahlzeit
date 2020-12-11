@@ -80,19 +80,19 @@ public class CartesianCoordinateTest {
         p1.asSphericCoordinate();
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetDistanceShouldThrowNullPointer(){
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.getCartesianDistance(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testisEqualShouldThrowNullPointer(){
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.isEqual(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAngleShouldThrowNullPointer(){
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.getCentralAngle(null);

@@ -42,32 +42,32 @@ public class SphericCoordinateTest {
 
     @Test
     public void testIsEqual() {
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 9);
+        SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
+        SphericCoordinate p2 = new SphericCoordinate(0, Math.PI/ 2, 1);
         Assert.assertTrue(p1.isEqual(p2));
         Assert.assertTrue(p2.isEqual(p1));
     }
 
     @Test
     public void testIsNotEqual() {
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 10);
+        SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
+        SphericCoordinate p2 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 1);
         Assert.assertFalse(p1.isEqual(p2));
         Assert.assertFalse(p2.isEqual(p1));
     }
 
     @Test
     public void testTestEquals() {
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 9);
+        SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
+        SphericCoordinate p2 = new SphericCoordinate(0, Math.PI/ 2, 1);
         Assert.assertTrue(p1.equals(p2));
         Assert.assertTrue(p2.equals(p1));
     }
 
     @Test
     public void testTestNotEquals() {
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 10);
+        SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
+        SphericCoordinate p2 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 1);
         Assert.assertFalse(p1.equals(p2));
         Assert.assertFalse(p2.equals(p1));
     }
@@ -104,19 +104,19 @@ public class SphericCoordinateTest {
         Assert.assertFalse(p1.hashCode() == p2.hashCode());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCartesianDistanceShouldThrowNullPointer(){
         SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
         p1.getCartesianDistance(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testisEqualShouldThrowNullPointer(){
         SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
         p1.isEqual(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testGetCentralAngleShouldThrowNullPointer(){
         SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
         p1.getCentralAngle(null);
