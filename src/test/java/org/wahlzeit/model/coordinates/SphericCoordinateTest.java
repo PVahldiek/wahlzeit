@@ -100,7 +100,7 @@ public class SphericCoordinateTest {
     @Test
     public void testHashCodeNotEquals(){
         SphericCoordinate p1 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 0);
-        SphericCoordinate p2 = new SphericCoordinate(0, Math.PI/2, 0);
+        SphericCoordinate p2 = new SphericCoordinate(Math.PI, Math.PI/2, 3);
         Assert.assertFalse(p1.hashCode() == p2.hashCode());
     }
 
