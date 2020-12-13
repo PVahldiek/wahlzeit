@@ -19,6 +19,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         x = newX;
         y = newY;
         z = newZ;
+        assertClassInvariants();
     }
 
     /**
