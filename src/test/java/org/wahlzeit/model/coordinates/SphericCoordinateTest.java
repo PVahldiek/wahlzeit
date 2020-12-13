@@ -92,15 +92,15 @@ public class SphericCoordinateTest {
 
     @Test
     public void testHashCodeEquals(){
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 9);
+        SphericCoordinate p1 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 0);
+        SphericCoordinate p2 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 0);
         Assert.assertTrue(p1.hashCode() == p2.hashCode());
     }
 
     @Test
     public void testHashCodeNotEquals(){
-        SphericCoordinate p1 = new SphericCoordinate(3, 6, 9);
-        SphericCoordinate p2 = new SphericCoordinate(3, 6, 10);
+        SphericCoordinate p1 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 0);
+        SphericCoordinate p2 = new SphericCoordinate(0, Math.PI/2, 0);
         Assert.assertFalse(p1.hashCode() == p2.hashCode());
     }
 
