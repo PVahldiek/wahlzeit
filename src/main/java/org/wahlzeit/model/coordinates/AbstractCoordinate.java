@@ -12,6 +12,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * Builds a CartesianCoordinate with the current SphericCoordinate
      * if object is already a CartesianCoordinate, it returns the instance
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
+     * @return cartesian representation of the coordinate
      */
     @Override
     public CartesianCoordinate asCartesianCoordinate(){
@@ -27,7 +28,9 @@ public abstract class AbstractCoordinate implements Coordinate{
     protected abstract CartesianCoordinate doAsCartesianCoordinate();
 
     /**
-     * calculates CartesianDistance
+     * Calculates CartesianDistance between two CartesianCoordinates
+     * @param coordinate Coordinate to which the distance should be calculated
+     * @return distance
      */
     @Override
     public double getCartesianDistance(Coordinate coordinate) {
@@ -43,6 +46,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * converts a cartesianCoordinate into a sphericCoordinate
      * if object is already a SphericCoordinate, it returns the instance
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
+     * @return spheric representation of the coordinate
      */
     @Override
     public SphericCoordinate asSphericCoordinate(){
@@ -60,6 +64,8 @@ public abstract class AbstractCoordinate implements Coordinate{
     /**
      * Calculates the centralAngle using the great-circle-distance formula
      * See also: https://en.wikipedia.org/wiki/Great-circle_distance
+     * @param coordinate Coordinate to which the CentralAngle should be calculated
+     * @return central angle
      */
     @Override
     public double getCentralAngle(Coordinate coordinate) {
@@ -78,6 +84,8 @@ public abstract class AbstractCoordinate implements Coordinate{
      * Checks if two coordinates are equal
      * Equal check uses the conversion into two CartesianCoordinates
      * @methodtype boolean
+     * @param coordinate Coordinate which should be compared
+     * @return true if the two coordinates are equal, false otherwise
      */
     @Override
     public boolean isEqual(Coordinate coordinate){
@@ -111,7 +119,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     /**
      * Generic pre condition
-     * @param object
+     * @param object which is tested for null
      */
     protected void assertIsNonNullArgument(Object object){
         if(object == null)
@@ -120,7 +128,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
     /**
      * Generic post condition
-     * @param number
+     * @param number which is tested for NaN
      */
     protected void assertIsNonNaN(double number){
         if(Double.isNaN(number))
