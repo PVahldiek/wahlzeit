@@ -122,4 +122,14 @@ public class SphericCoordinateTest {
         p1.getCentralAngle(null);
     }
 
+    @Test(expected = AssertionError.class)
+    public void testObjectNotInvariant(){
+        SphericCoordinate p1 = new SphericCoordinate(1, 10, 0 );
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testObjectSetNotInvariant(){
+        SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
+        p1.setPhi(10);
+    }
 }

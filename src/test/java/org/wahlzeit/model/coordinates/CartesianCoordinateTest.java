@@ -97,4 +97,15 @@ public class CartesianCoordinateTest {
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.getCentralAngle(null);
     }
+
+    @Test(expected = AssertionError.class)
+    public void testObjectNotInvariant(){
+        CartesianCoordinate c1 = new CartesianCoordinate(1, 0, Double.NaN);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void testObjectSetNotInvariant(){
+        CartesianCoordinate c1 = new CartesianCoordinate(1, 0,0);
+        c1.setX(Double.NaN);
+    }
 }
