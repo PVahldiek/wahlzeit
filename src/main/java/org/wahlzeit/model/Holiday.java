@@ -18,6 +18,7 @@ public class Holiday {
         days = newDays;
         costs = newCosts;
         country = newCountry;
+        assertClassInvariants();
     }
 
     /**
@@ -33,7 +34,9 @@ public class Holiday {
      * @methodtype set
      */
     public void setDays(int newDays) {
+        assertClassInvariants();
         days = newDays;
+        assertClassInvariants();
     }
 
     /**
@@ -49,7 +52,9 @@ public class Holiday {
      * @methodtype set
      */
     public void setCosts(int newCosts) {
+        assertClassInvariants();
         costs = newCosts;
+        assertClassInvariants();
     }
 
     /**
@@ -73,6 +78,7 @@ public class Holiday {
      * @methodtype boolean
      */
     public boolean isEqual(Holiday holiday) {
+        assertIsNonNullArgument(holiday);
         return (days == holiday.getDays()) && (costs == holiday.getCosts()) && (country == holiday.getCountry());
     }
 
@@ -93,5 +99,21 @@ public class Holiday {
     @Override
     public int hashCode() {
         return Objects.hash(days, costs, country);
+    }
+
+    /**
+     * Generic pre condition
+     * @param object which is tested for null
+     */
+    protected void assertIsNonNullArgument(Object object){
+        if(object == null)
+            throw new IllegalArgumentException("Object " + object.toString() + " must be not null");
+    }
+
+    /**
+     * Class Invariants for Holiday (not negative)
+     */
+    protected void assertClassInvariants(){
+        assert !(days < 0) && !(costs < 0);
     }
 }
