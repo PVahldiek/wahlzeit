@@ -14,7 +14,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     /**
      * @methodtype constructor
      */
-    public SphericCoordinate(double phi, double theta, double radius){
+    public SphericCoordinate(double phi, double theta, double radius) throws AssertionError{
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
@@ -26,11 +26,14 @@ public class SphericCoordinate extends AbstractCoordinate{
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
      */
     @Override
-    public CartesianCoordinate doAsCartesianCoordinate() {
+    public CartesianCoordinate doAsCartesianCoordinate() throws IllegalStateException{
         double phi = this.getPhi(), theta = this.getTheta(), radius = this.getRadius();
         double x = radius * Math.sin(theta) * Math.cos(phi);
         double y = radius * Math.sin(theta) * Math.sin(phi);
         double z = radius * Math.cos(theta);
+        if(radius < 0){
+            throw new IllegalStateException("Error in radius convention (Should not be smaller than zero)");
+        }
         return new CartesianCoordinate(x, y, z);
     }
 
@@ -46,7 +49,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setPhi(double newPhi) {
+    public void setPhi(double newPhi) throws AssertionError {
         assertClassInvariants();
         phi = newPhi;
         assertClassInvariants();
@@ -64,7 +67,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setTheta(double newTheta) {
+    public void setTheta(double newTheta) throws AssertionError {
         assertClassInvariants();
         theta = newTheta;
         assertClassInvariants();
@@ -82,7 +85,7 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setRadius(double newRadius) {
+    public void setRadius(double newRadius) throws AssertionError {
         assertClassInvariants();
         radius = newRadius;
         assertClassInvariants();
@@ -103,9 +106,10 @@ public class SphericCoordinate extends AbstractCoordinate{
      * 0 <= theta <= (Math.PI)
      */
     @Override
-    protected void assertClassInvariants() {
+    protected void assertClassInvariants() throws AssertionError {
         assert phi >= -(Math.PI) && phi <= 2 * Math.PI;
         assert theta >= 0 && theta <= Math.PI;
+        assert radius >= 0;
         assert !Double.isNaN(phi) && !Double.isNaN(theta) && !Double.isNaN(radius);
     }
 }

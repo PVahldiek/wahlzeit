@@ -15,7 +15,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return cartesian representation of the coordinate
      */
     @Override
-    public CartesianCoordinate asCartesianCoordinate(){
+    public CartesianCoordinate asCartesianCoordinate() throws AssertionError, IllegalStateException{
         assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = doAsCartesianCoordinate();
         assertClassInvariants();
@@ -33,7 +33,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return distance
      */
     @Override
-    public double getCartesianDistance(Coordinate coordinate) {
+    public double getCartesianDistance(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException{
         assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
@@ -49,7 +49,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return spheric representation of the coordinate
      */
     @Override
-    public SphericCoordinate asSphericCoordinate(){
+    public SphericCoordinate asSphericCoordinate() throws AssertionError, IllegalStateException{
         assertClassInvariants();
         SphericCoordinate sphericCoordinate = doAsSphericCoordinate();
         assertClassInvariants();
@@ -68,7 +68,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return central angle
      */
     @Override
-    public double getCentralAngle(Coordinate coordinate) {
+    public double getCentralAngle(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException{
         assertIsNonNullArgument(coordinate);
         SphericCoordinate thisCoordinate = this.asSphericCoordinate();
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
@@ -88,7 +88,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return true if the two coordinates are equal, false otherwise
      */
     @Override
-    public boolean isEqual(Coordinate coordinate){
+    public boolean isEqual(Coordinate coordinate) throws IllegalArgumentException{
         assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
@@ -121,7 +121,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * Generic pre condition
      * @param object which is tested for null
      */
-    protected void assertIsNonNullArgument(Object object){
+    protected void assertIsNonNullArgument(Object object) throws IllegalArgumentException{
         if(object == null)
             throw new IllegalArgumentException("Object must be not null");
     }
@@ -130,7 +130,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * Generic post condition
      * @param number which is tested for NaN
      */
-    protected void assertIsNonNaN(double number){
+    protected void assertIsNonNaN(double number) throws IllegalArgumentException{
         if(Double.isNaN(number))
             throw new IllegalArgumentException("Double must not be NaN");
     }

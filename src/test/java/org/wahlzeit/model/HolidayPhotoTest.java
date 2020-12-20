@@ -18,19 +18,19 @@ public class HolidayPhotoTest {
         assertEquals(holidayPhoto.getHoliday().getCountry(), "Australia");
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testSetHolidayShouldThrowNullPointer(){
         HolidayPhoto holidayPhoto = new HolidayPhoto();
         holidayPhoto.setHoliday(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testWriteOnShouldThrowNullPointer() throws SQLException {
         HolidayPhoto holidayPhoto = new HolidayPhoto();
         holidayPhoto.writeOn(null);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testReadFromShouldThrowNullPointer() throws SQLException {
         HolidayPhoto holidayPhoto = new HolidayPhoto();
         holidayPhoto.readFrom(null);

@@ -14,7 +14,7 @@ public class Holiday {
      *
      * @methodtype constructor
      */
-    public Holiday(int newDays, int newCosts, String newCountry) {
+    public Holiday(int newDays, int newCosts, String newCountry) throws AssertionError{
         days = newDays;
         costs = newCosts;
         country = newCountry;
@@ -33,7 +33,7 @@ public class Holiday {
      *
      * @methodtype set
      */
-    public void setDays(int newDays) {
+    public void setDays(int newDays) throws AssertionError{
         assertClassInvariants();
         days = newDays;
         assertClassInvariants();
@@ -51,7 +51,7 @@ public class Holiday {
      *
      * @methodtype set
      */
-    public void setCosts(int newCosts) {
+    public void setCosts(int newCosts) throws AssertionError {
         assertClassInvariants();
         costs = newCosts;
         assertClassInvariants();
@@ -77,7 +77,7 @@ public class Holiday {
      * Checks if two holidays are equal
      * @methodtype boolean
      */
-    public boolean isEqual(Holiday holiday) {
+    public boolean isEqual(Holiday holiday) throws IllegalArgumentException{
         assertIsNonNullArgument(holiday);
         return (days == holiday.getDays()) && (costs == holiday.getCosts()) && (country == holiday.getCountry());
     }
@@ -105,15 +105,15 @@ public class Holiday {
      * Generic pre condition
      * @param object which is tested for null
      */
-    protected void assertIsNonNullArgument(Object object){
+    protected void assertIsNonNullArgument(Object object) throws IllegalArgumentException{
         if(object == null)
-            throw new IllegalArgumentException("Object " + object.toString() + " must be not null");
+            throw new IllegalArgumentException("Object must be not null");
     }
 
     /**
      * Class Invariants for Holiday (not negative)
      */
-    protected void assertClassInvariants(){
+    protected void assertClassInvariants() throws AssertionError{
         assert !(days < 0) && !(costs < 0);
     }
 }

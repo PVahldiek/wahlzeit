@@ -15,7 +15,7 @@ public class Location {
      *
      * @methodtype constructor
      */
-    public Location(CartesianCoordinate newCartesianCoordinate) {
+    public Location(CartesianCoordinate newCartesianCoordinate) throws IllegalArgumentException{
         assertIsNonNullArgument(newCartesianCoordinate);
         coordinate = newCartesianCoordinate;
     }
@@ -24,7 +24,7 @@ public class Location {
      *
      * @methodtype constructor
      */
-    public Location(SphericCoordinate newSphericCoordinate) {
+    public Location(SphericCoordinate newSphericCoordinate) throws IllegalArgumentException{
         assertIsNonNullArgument(newSphericCoordinate);
         coordinate = newSphericCoordinate;
     }
@@ -41,7 +41,7 @@ public class Location {
      *
      * @methodtype set
      */
-    public void setCoordinate(Coordinate newCoordinate) {
+    public void setCoordinate(Coordinate newCoordinate) throws IllegalArgumentException{
         assertIsNonNullArgument(newCoordinate);
         coordinate = newCoordinate;
     }
@@ -52,6 +52,6 @@ public class Location {
      */
     protected void assertIsNonNullArgument(Object object){
         if(object == null)
-            throw new IllegalArgumentException("Object " + object.toString() + " must be not null");
+            throw new IllegalArgumentException("Object must be not null");
     }
 }

@@ -15,7 +15,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype constructor
      */
-    public CartesianCoordinate(double newX, double newY, double newZ) {
+    public CartesianCoordinate(double newX, double newY, double newZ) throws AssertionError {
         x = newX;
         y = newY;
         z = newZ;
@@ -35,7 +35,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * See also: https://de.wikipedia.org/wiki/Kugelkoordinaten
      */
     @Override
-    public SphericCoordinate doAsSphericCoordinate() {
+    public SphericCoordinate doAsSphericCoordinate() throws IllegalStateException, ArithmeticException{
         double x = this.getX(), y = this.getY(), z = this.getZ();
         double phi = 0, theta = 0, radius = 0;
         radius = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2));
@@ -67,7 +67,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setX(double newX) {
+    public void setX(double newX) throws AssertionError{
         assertClassInvariants();
         x = newX;
         assertClassInvariants();
@@ -85,7 +85,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setY(double newY) {
+    public void setY(double newY) throws AssertionError{
         assertClassInvariants();
         y = newY;
         assertClassInvariants();
@@ -103,7 +103,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setZ(double newZ) {
+    public void setZ(double newZ) throws AssertionError {
         assertClassInvariants();
         z = newZ;
         assertClassInvariants();

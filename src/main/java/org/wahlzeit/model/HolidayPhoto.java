@@ -25,7 +25,7 @@ public class HolidayPhoto extends Photo{
      *
      * @methodtype constructor
      */
-    public HolidayPhoto(PhotoId myId) {
+    public HolidayPhoto(PhotoId myId) throws IllegalArgumentException {
         assertIsNonNullArgument(myId);
         id = myId;
         incWriteCount();
@@ -52,21 +52,21 @@ public class HolidayPhoto extends Photo{
      *
      * @methodtype set
      */
-    public void setHoliday(Holiday newHoliday){
+    public void setHoliday(Holiday newHoliday) throws IllegalArgumentException{
         assertIsNonNullArgument(newHoliday);
         holiday = newHoliday;
     }
 
     //Adjust writeOn and readFrom for persistence
     @Override
-    public void readFrom(ResultSet rset) throws SQLException {
+    public void readFrom(ResultSet rset) throws SQLException, IllegalArgumentException {
         assertIsNonNullArgument(rset);
         super.readFrom(rset);
         setHoliday(new Holiday(rset.getInt("holiday_days"), rset.getInt("holiday_costs"), rset.getString("holiday_country")));
     }
 
     @Override
-    public void writeOn(ResultSet rset) throws SQLException {
+    public void writeOn(ResultSet rset) throws SQLException, IllegalArgumentException {
         assertIsNonNullArgument(rset);
         super.writeOn(rset);
         rset.updateInt("holiday_days", getHoliday().getDays());
@@ -80,6 +80,6 @@ public class HolidayPhoto extends Photo{
      */
     protected void assertIsNonNullArgument(Object object){
         if(object == null)
-            throw new IllegalArgumentException("Object " + object.toString() + " must be not null");
+            throw new IllegalArgumentException("Object must be not null");
     }
 }
