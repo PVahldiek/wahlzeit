@@ -1,5 +1,7 @@
 package org.wahlzeit.model.coordinates;
 
+import org.wahlzeit.model.coordinates.exc.CalculationException;
+
 /**
  * An interface for different coordinate types
  */

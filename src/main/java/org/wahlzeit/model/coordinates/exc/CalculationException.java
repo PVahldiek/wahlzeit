@@ -1,4 +1,4 @@
-package org.wahlzeit.model.coordinates;
+package org.wahlzeit.model.coordinates.exc;
 
 /**
  * Exception class for distances that doesn't meet contracts

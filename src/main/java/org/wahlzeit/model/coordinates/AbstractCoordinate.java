@@ -1,6 +1,8 @@
 package org.wahlzeit.model.coordinates;
 
 
+import org.wahlzeit.model.coordinates.exc.CalculationException;
+
 import java.util.Objects;
 
 /**
