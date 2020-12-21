@@ -119,18 +119,24 @@ public abstract class ModelMain extends AbstractMain {
 		SysLog.logQuery(query);
 
 		Statement stmt = conn.createStatement();
-		ResultSet result = stmt.executeQuery(query);
-		if (result.next()) {
-			int lastUserId = result.getInt("last_user_id");
+		ResultSet rset = null;
+		try{
+			rset = stmt.executeQuery(query);
+		}catch (Exception e){
+			SysLog.logThrowable(e);
+			throw new SQLException("Error during execution of SQL query");
+		}
+		if (rset.next()) {
+			int lastUserId = rset.getInt("last_user_id");
 			User.setLastUserId(lastUserId);
 			SysLog.logSysInfo("loaded global variable lastUserId: " + lastUserId);
-			int lastPhotoId = result.getInt("last_photo_id");
+			int lastPhotoId = rset.getInt("last_photo_id");
 			PhotoId.setCurrentIdFromInt(lastPhotoId);
 			SysLog.logSysInfo("loaded global variable lastPhotoId: " + lastPhotoId);
-			int lastCaseId = result.getInt("last_case_id");
+			int lastCaseId = rset.getInt("last_case_id");
 			Case.setLastCaseId(new CaseId(lastCaseId));
 			SysLog.logSysInfo("loaded global variable lastCaseId: " + lastCaseId);
-			int lastSessionId = result.getInt("last_session_id");
+			int lastSessionId = rset.getInt("last_session_id");
 			AbstractServlet.setLastSessionId(lastSessionId);		
 			SysLog.logSysInfo("loaded global variable lastSessionId: " + lastSessionId);
 		} else {

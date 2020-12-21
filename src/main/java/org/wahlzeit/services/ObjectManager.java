@@ -44,13 +44,7 @@ public abstract class ObjectManager {
 	protected Persistent readObject(PreparedStatement stmt, int value) throws SQLException {
 		Persistent result = null;
 		stmt.setInt(1, value);
-		SysLog.logQuery(stmt);
-		ResultSet rset = stmt.executeQuery();
-		if (rset.next()) {
-			result = createObject(rset);
-		}
-
-		return result;
+		return getPersistent(stmt, result);
 	}
 	
 	/**
@@ -59,21 +53,37 @@ public abstract class ObjectManager {
 	protected Persistent readObject(PreparedStatement stmt, String value) throws SQLException {
 		Persistent result = null;
 		stmt.setString(1, value);
+		return getPersistent(stmt, result);
+	}
+
+	private Persistent getPersistent(PreparedStatement stmt, Persistent result) throws SQLException {
 		SysLog.logQuery(stmt);
-		ResultSet rset = stmt.executeQuery();
+		ResultSet rset = null;
+		try{
+			rset = stmt.executeQuery();
+		}catch (Exception e){
+			SysLog.logThrowable(e);
+			throw new SQLException("Error during execution of SQL query");
+		}
 		if (rset.next()) {
 			result = createObject(rset);
 		}
 
 		return result;
 	}
-	
+
 	/**
 	 * 
 	 */
 	protected void readObjects(Collection result, PreparedStatement stmt) throws SQLException {
 		SysLog.logQuery(stmt);
-		ResultSet rset = stmt.executeQuery();
+		ResultSet rset = null;
+		try{
+			rset = stmt.executeQuery();
+		}catch (Exception e){
+			SysLog.logThrowable(e);
+			throw new SQLException("Error during execution of SQL query");
+		}
 		while (rset.next()) {
 			Persistent obj = createObject(rset);
 			result.add(obj);
@@ -86,7 +96,13 @@ public abstract class ObjectManager {
 	protected void readObjects(Collection result, PreparedStatement stmt, String value) throws SQLException {
 		stmt.setString(1, value);
 		SysLog.logQuery(stmt);
-		ResultSet rset = stmt.executeQuery();
+		ResultSet rset = null;
+		try{
+			rset = stmt.executeQuery();
+		}catch (Exception e){
+			SysLog.logThrowable(e);
+			throw new SQLException("Error during execution of SQL query");
+		}
 		while (rset.next()) {
 			Persistent obj = createObject(rset);
 			result.add(obj);
@@ -123,7 +139,13 @@ public abstract class ObjectManager {
 		if (obj.isDirty()) {
 			obj.writeId(stmt, 1);
 			SysLog.logQuery(stmt);
-			ResultSet rset = stmt.executeQuery();
+			ResultSet rset = null;
+			try{
+				rset = stmt.executeQuery();
+			}catch (Exception e){
+				SysLog.logThrowable(e);
+				throw new SQLException("Error during execution of SQL query");
+			}
 			if (rset.next()) {
 				obj.writeOn(rset);
 				rset.updateRow();

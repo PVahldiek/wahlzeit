@@ -1,5 +1,8 @@
 package org.wahlzeit.model;
+import org.wahlzeit.services.SysLog;
+
 import java.io.File;
+import java.io.IOException;
 
 
 public class HolidayPhotoManager extends PhotoManager{
@@ -22,7 +25,13 @@ public class HolidayPhotoManager extends PhotoManager{
      */
     public HolidayPhoto createPhoto(File file) throws Exception {
         PhotoId id = PhotoId.getNextId();
-        HolidayPhoto result = (HolidayPhoto) PhotoUtil.createPhoto(file, id);
+        HolidayPhoto result;
+        try{
+            result = (HolidayPhoto) PhotoUtil.createPhoto(file, id);
+        }catch (Exception e){
+            SysLog.logThrowable(e);
+            throw new IOException("Error during creation of photo from file");
+        }
         addPhoto(result);
         return result;
     }

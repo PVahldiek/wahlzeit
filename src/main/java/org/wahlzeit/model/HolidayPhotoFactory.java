@@ -22,6 +22,8 @@ public class HolidayPhotoFactory extends PhotoFactory{
      *
      */
     public HolidayPhoto createPhoto(PhotoId id) {
+        if(id == null)
+            throw new IllegalArgumentException("PhotoId should not be null");
         return new HolidayPhoto(id);
     }
 
@@ -29,6 +31,8 @@ public class HolidayPhotoFactory extends PhotoFactory{
      *
      */
     public HolidayPhoto createPhoto(ResultSet rs) throws SQLException {
+        if(rs == null)
+            throw new IllegalArgumentException("ResultSet should not be null");
         return new HolidayPhoto(rs);
     }
 
