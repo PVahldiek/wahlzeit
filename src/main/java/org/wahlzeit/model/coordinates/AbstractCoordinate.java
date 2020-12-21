@@ -33,12 +33,13 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return distance
      */
     @Override
-    public double getCartesianDistance(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException{
+    public double getCartesianDistance(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException, CalculationException {
         assertIsNonNullArgument(coordinate);
         CartesianCoordinate thisCoordinate = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = coordinate.asCartesianCoordinate();
         double result = Math.sqrt(Math.pow((thisCoordinate.getX() - cartesianCoordinate.getX()), 2) + Math.pow(thisCoordinate.getY() - cartesianCoordinate.getY(), 2) + Math.pow(thisCoordinate.getZ() - cartesianCoordinate.getZ(), 2));
         assertIsNonNaN(result);
+        assertIsPositive(result);
         return result;
     }
 
@@ -68,7 +69,7 @@ public abstract class AbstractCoordinate implements Coordinate{
      * @return central angle
      */
     @Override
-    public double getCentralAngle(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException{
+    public double getCentralAngle(Coordinate coordinate) throws IllegalArgumentException, ArithmeticException, IllegalStateException, CalculationException {
         assertIsNonNullArgument(coordinate);
         SphericCoordinate thisCoordinate = this.asSphericCoordinate();
         SphericCoordinate sphericCoordinate = coordinate.asSphericCoordinate();
@@ -77,6 +78,7 @@ public abstract class AbstractCoordinate implements Coordinate{
 
         double result = thisCoordinate.getRadius() * Math.acos(Math.sin(thisCoordinate.getPhi()) * Math.sin(sphericCoordinate.getPhi()) + Math.cos(thisCoordinate.getPhi()) * Math.cos(sphericCoordinate.getPhi()) * Math.cos(sphericCoordinate.getTheta() - thisCoordinate.getTheta()));
         assertIsNonNaN(result);
+        assertIsPositive(result);
         return result;
     }
 
@@ -133,6 +135,12 @@ public abstract class AbstractCoordinate implements Coordinate{
     protected void assertIsNonNaN(double number) throws IllegalArgumentException{
         if(Double.isNaN(number))
             throw new IllegalArgumentException("Double must not be NaN");
+    }
+
+    protected void assertIsPositive(double distance) throws CalculationException{
+        if(distance < 0){
+            throw new CalculationException("Error in distance calculation, distance can't be less zero");
+        }
     }
 
     /**
