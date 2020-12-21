@@ -1,11 +1,12 @@
 package org.wahlzeit.model.coordinates;
 import org.junit.Assert;
 import org.junit.Test;
+import org.wahlzeit.model.coordinates.exc.CalculationException;
 
 public class CartesianCoordinateTest {
 
     @Test
-    public void testGetDistance() {
+    public void testGetDistance() throws CalculationException {
         CartesianCoordinate c1 = new CartesianCoordinate(3, 6, 9);
         CartesianCoordinate c2 = new CartesianCoordinate(3, 6, 10);
         Assert.assertTrue(c1.getCartesianDistance(c2) == 1);
@@ -81,7 +82,7 @@ public class CartesianCoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetDistanceShouldThrowNullPointer(){
+    public void testGetDistanceShouldThrowNullPointer() throws CalculationException {
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.getCartesianDistance(null);
     }
@@ -93,7 +94,7 @@ public class CartesianCoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetCentralAngleShouldThrowNullPointer(){
+    public void testGetCentralAngleShouldThrowNullPointer() throws CalculationException {
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0 );
         c1.getCentralAngle(null);
     }

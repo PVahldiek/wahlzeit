@@ -1,6 +1,7 @@
 package org.wahlzeit.model.coordinates;
 import org.junit.Assert;
 import org.junit.Test;
+import org.wahlzeit.model.coordinates.exc.CalculationException;
 
 public class SphericCoordinateTest {
 
@@ -15,7 +16,7 @@ public class SphericCoordinateTest {
     }
 
     @Test
-    public void testGetCartesianDistance() {
+    public void testGetCartesianDistance() throws CalculationException {
         CartesianCoordinate c1 = new CartesianCoordinate(1, 0, 0);
         SphericCoordinate p1 = new SphericCoordinate(0,0,0);
         double distance = p1.getCartesianDistance(c1);
@@ -33,7 +34,7 @@ public class SphericCoordinateTest {
     }
 
     @Test
-    public void testGetCentralAngle() {
+    public void testGetCentralAngle() throws CalculationException {
         SphericCoordinate p1 = new SphericCoordinate(0, Math.PI/ 2, 1);
         SphericCoordinate p2 = new SphericCoordinate(Math.PI / 2, Math.PI/2, 1);
         double distance = p1.getCentralAngle(p2);
@@ -105,7 +106,7 @@ public class SphericCoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetCartesianDistanceShouldThrowNullPointer(){
+    public void testGetCartesianDistanceShouldThrowNullPointer() throws CalculationException {
         SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
         p1.getCartesianDistance(null);
     }
@@ -117,7 +118,7 @@ public class SphericCoordinateTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testGetCentralAngleShouldThrowNullPointer(){
+    public void testGetCentralAngleShouldThrowNullPointer() throws CalculationException {
         SphericCoordinate p1 = new SphericCoordinate(1, 0, 0 );
         p1.getCentralAngle(null);
     }
