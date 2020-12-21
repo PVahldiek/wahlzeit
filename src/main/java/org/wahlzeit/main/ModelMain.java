@@ -118,9 +118,10 @@ public abstract class ModelMain extends AbstractMain {
 		String query = "SELECT * FROM globals";
 		SysLog.logQuery(query);
 
-		Statement stmt = conn.createStatement();
+		Statement stmt = null;
 		ResultSet rset = null;
 		try{
+			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 		}catch (Exception e){
 			SysLog.logThrowable(e);
@@ -156,8 +157,15 @@ public abstract class ModelMain extends AbstractMain {
 		String query = "SELECT * FROM globals";
 		SysLog.logQuery(query);
 
-		Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-		ResultSet rset = stmt.executeQuery(query);
+		Statement stmt = null;
+		ResultSet rset = null;
+		try{
+			stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+			rset = stmt.executeQuery(query);
+		}catch (Exception e){
+			SysLog.logThrowable(e);
+			throw new SQLException("Error during execution of SQL query");
+		}
 		if (rset.next()) {
 			int lastUserId = User.getLastUserId();
 			rset.updateInt("last_user_id", lastUserId);
