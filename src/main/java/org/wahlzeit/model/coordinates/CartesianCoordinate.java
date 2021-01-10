@@ -114,7 +114,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
     public CartesianCoordinate setZ(double newZ) throws AssertionError {
         assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, newZ);
-        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
+        CartesianCoordinate oldCartesianCoordinate = new CartesianCoordinate(x, y, z);
+        String cartesianCoordinateAsString = fetchOrDeleteCartesianCoordinate(cartesianCoordinate, oldCartesianCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
@@ -126,6 +127,16 @@ public class CartesianCoordinate extends AbstractCoordinate{
     private static String fetchOrSetCartesianCoordinate(CartesianCoordinate cartesianCoordinate){
         String cartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(cartesianCoordinate);
         return CoordinateUtil.getString(cartesianCoordinateAsString, cartesianCoordinates, cartesianCoordinate.hashCode());
+    }
+
+    /**
+     * Helper method doing all stuff needed to serialize and look for shared objects etc...
+     * Needed in setters, also deletes the old object in hashMap
+     */
+    private static String fetchOrDeleteCartesianCoordinate(CartesianCoordinate cartesianCoordinate, CartesianCoordinate oldCartesianCoordinate){
+        String cartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(cartesianCoordinate);
+        String oldCartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(oldCartesianCoordinate);
+        return CoordinateUtil.fetchAndDeleteString(cartesianCoordinateAsString, oldCartesianCoordinateAsString, cartesianCoordinates, cartesianCoordinate.hashCode(), oldCartesianCoordinate.hashCode());
     }
 
     /**

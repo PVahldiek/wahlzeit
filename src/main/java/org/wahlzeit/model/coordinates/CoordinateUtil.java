@@ -50,4 +50,23 @@ public class CoordinateUtil {
         }
         return result;
     }
+
+    /**
+     * Helper method to delete String from HashMap
+     * To minimize Code duplicates
+     */
+    public static String fetchAndDeleteString(String coordinateAsStringNew, String coordinateAsStringOld, HashMap<Integer, String> coordinatesMap, int hashNew, int hashOld) {
+        String result = coordinatesMap.get(hashNew);
+        if(result != null) {
+            synchronized (coordinatesMap) {
+                result = coordinatesMap.get(hashNew);
+                if (result != null) {
+                    result = coordinateAsStringNew;
+                    coordinatesMap.put(hashNew, coordinateAsStringNew);
+                }
+            }
+        }
+        coordinatesMap.remove(hashOld, coordinateAsStringOld);
+        return result;
+    }
 }
