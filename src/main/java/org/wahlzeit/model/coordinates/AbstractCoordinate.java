@@ -3,12 +3,16 @@ package org.wahlzeit.model.coordinates;
 
 import org.wahlzeit.model.coordinates.exc.CalculationException;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
  * Abstract class for minimal redundancy
  */
 public abstract class AbstractCoordinate implements Coordinate{
+
+    public static HashMap<Integer, String> sphericCoordinates = new HashMap<>();
+    public static HashMap<Integer, String> cartesianCoordinates = new HashMap<>();
 
     /**
      * Builds a CartesianCoordinate with the current SphericCoordinate

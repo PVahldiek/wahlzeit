@@ -1,7 +1,5 @@
 package org.wahlzeit.model.coordinates;
 
-import java.util.Objects;
-
 public class SphericCoordinate extends AbstractCoordinate{
 
     /**
@@ -19,6 +17,12 @@ public class SphericCoordinate extends AbstractCoordinate{
         this.theta = theta;
         this.radius = radius;
         assertClassInvariants();
+    }
+
+    public static SphericCoordinate createSphericCoordinate(double phi, double theta, double radius) throws AssertionError{
+        SphericCoordinate sphericCoordinate = new SphericCoordinate(phi, theta, radius);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
+        return deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
 
     /**
@@ -49,10 +53,12 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setPhi(double newPhi) throws AssertionError {
+    public SphericCoordinate setPhi(double newPhi) throws AssertionError {
         assertClassInvariants();
-        phi = newPhi;
+        SphericCoordinate sphericCoordinate = new SphericCoordinate(newPhi, theta, radius);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
+        return deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
 
     /**
@@ -67,10 +73,12 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setTheta(double newTheta) throws AssertionError {
+    public SphericCoordinate setTheta(double newTheta) throws AssertionError {
         assertClassInvariants();
-        theta = newTheta;
+        SphericCoordinate sphericCoordinate = new SphericCoordinate(phi, newTheta, radius);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
+        return deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
 
     /**
@@ -85,10 +93,12 @@ public class SphericCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setRadius(double newRadius) throws AssertionError {
+    public SphericCoordinate setRadius(double newRadius) throws AssertionError {
         assertClassInvariants();
-        radius = newRadius;
+        SphericCoordinate sphericCoordinate = new SphericCoordinate(phi, theta, newRadius);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
+        return deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
 
     /**
@@ -97,6 +107,39 @@ public class SphericCoordinate extends AbstractCoordinate{
      */
     public double getRadius() {
         return radius;
+    }
+
+    /**
+     * Helper method doing all stuff needed to serialize and look for shared objects etc...
+     * Needed in setters and initializer
+     */
+    private static String fetchOrSetSphericCoordinate(SphericCoordinate sphericCoordinate){
+        String sphericCoordinateAsString = serializeSphericCoordinate(sphericCoordinate);
+        String result = sphericCoordinates.get(sphericCoordinate.hashCode());
+        if(result == null) {
+            synchronized (sphericCoordinates) {
+                result = sphericCoordinates.get(sphericCoordinate.hashCode());
+                if (result == null) {
+                    result = sphericCoordinateAsString;
+                    sphericCoordinates.put(sphericCoordinate.hashCode(), sphericCoordinateAsString);
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Helper method to return String from SphericCoordinate
+     */
+    private static String serializeSphericCoordinate(SphericCoordinate sphericCoordinate){
+        return sphericCoordinate.getPhi() + "/" + sphericCoordinate.getTheta() + "/" + sphericCoordinate.getRadius();
+    }
+
+    /**
+     * Helper method to return SphericCoordinate from String
+     */
+    private static SphericCoordinate deSerializeSphericCoordinate(String sphericCoordinate){
+        return createSphericCoordinate(Double.parseDouble(sphericCoordinate.split("/")[0]), Double.parseDouble(sphericCoordinate.split("/")[1]), Double.parseDouble(sphericCoordinate.split("/")[2]));
     }
 
     /**
