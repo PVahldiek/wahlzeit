@@ -66,7 +66,10 @@ public class CoordinateUtil {
                 }
             }
         }
-        coordinatesMap.remove(hashOld, coordinateAsStringOld);
+        // If we set to the same previous value (f.e x = 10, setX(10))
+        if(result != coordinateAsStringOld){
+            coordinatesMap.remove(hashOld, coordinateAsStringOld);
+        }
         return result;
     }
 }

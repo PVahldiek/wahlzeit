@@ -74,7 +74,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
     public CartesianCoordinate setX(double newX) throws AssertionError{
         assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(newX, y, z);
-        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
+        CartesianCoordinate oldCartesianCoordinate = new CartesianCoordinate(x, y, z);
+        String cartesianCoordinateAsString = fetchAndDeleteCartesianCoordinate(cartesianCoordinate, oldCartesianCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
@@ -94,7 +95,8 @@ public class CartesianCoordinate extends AbstractCoordinate{
     public CartesianCoordinate setY(double newY) throws AssertionError{
         assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, newY, z);
-        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
+        CartesianCoordinate oldCartesianCoordinate = new CartesianCoordinate(x, y, z);
+        String cartesianCoordinateAsString = fetchAndDeleteCartesianCoordinate(cartesianCoordinate, oldCartesianCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
@@ -115,7 +117,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         assertClassInvariants();
         CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, newZ);
         CartesianCoordinate oldCartesianCoordinate = new CartesianCoordinate(x, y, z);
-        String cartesianCoordinateAsString = fetchOrDeleteCartesianCoordinate(cartesianCoordinate, oldCartesianCoordinate);
+        String cartesianCoordinateAsString = fetchAndDeleteCartesianCoordinate(cartesianCoordinate, oldCartesianCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
@@ -133,7 +135,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      * Helper method doing all stuff needed to serialize and look for shared objects etc...
      * Needed in setters, also deletes the old object in hashMap
      */
-    private static String fetchOrDeleteCartesianCoordinate(CartesianCoordinate cartesianCoordinate, CartesianCoordinate oldCartesianCoordinate){
+    private static String fetchAndDeleteCartesianCoordinate(CartesianCoordinate cartesianCoordinate, CartesianCoordinate oldCartesianCoordinate){
         String cartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(cartesianCoordinate);
         String oldCartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(oldCartesianCoordinate);
         return CoordinateUtil.fetchAndDeleteString(cartesianCoordinateAsString, oldCartesianCoordinateAsString, cartesianCoordinates, cartesianCoordinate.hashCode(), oldCartesianCoordinate.hashCode());
