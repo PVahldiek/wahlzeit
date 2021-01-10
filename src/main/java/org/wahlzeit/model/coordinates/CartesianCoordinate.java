@@ -13,7 +13,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype constructor
      */
-    public CartesianCoordinate(double newX, double newY, double newZ) throws AssertionError {
+    CartesianCoordinate(double newX, double newY, double newZ) throws AssertionError {
         x = newX;
         y = newY;
         z = newZ;

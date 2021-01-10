@@ -12,7 +12,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     /**
      * @methodtype constructor
      */
-    public SphericCoordinate(double phi, double theta, double radius) throws AssertionError{
+    SphericCoordinate(double phi, double theta, double radius) throws AssertionError{
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
