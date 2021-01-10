@@ -1,15 +1,13 @@
 package org.wahlzeit.model.coordinates;
 
-import java.util.Objects;
-
 public class CartesianCoordinate extends AbstractCoordinate{
 
     /**
      *
      */
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     /**
      *
@@ -20,6 +18,12 @@ public class CartesianCoordinate extends AbstractCoordinate{
         y = newY;
         z = newZ;
         assertClassInvariants();
+    }
+
+    public static CartesianCoordinate createCartesianCoordinate(double x, double y, double z) throws AssertionError{
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, z);
+        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
+        return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
 
     /**
@@ -67,10 +71,12 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setX(double newX) throws AssertionError{
+    public CartesianCoordinate setX(double newX) throws AssertionError{
         assertClassInvariants();
-        x = newX;
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(newX, y, z);
+        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
         assertClassInvariants();
+        return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
 
     /**
@@ -85,10 +91,12 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setY(double newY) throws AssertionError{
+    public CartesianCoordinate setY(double newY) throws AssertionError{
         assertClassInvariants();
-        y = newY;
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, newY, z);
+        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
         assertClassInvariants();
+        return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
     }
 
     /**
@@ -103,10 +111,21 @@ public class CartesianCoordinate extends AbstractCoordinate{
      *
      * @methodtype set
      */
-    public void setZ(double newZ) throws AssertionError {
+    public CartesianCoordinate setZ(double newZ) throws AssertionError {
         assertClassInvariants();
-        z = newZ;
+        CartesianCoordinate cartesianCoordinate = new CartesianCoordinate(x, y, newZ);
+        String cartesianCoordinateAsString = fetchOrSetCartesianCoordinate(cartesianCoordinate);
         assertClassInvariants();
+        return CoordinateUtil.deSerializeCartesianCoordinate(cartesianCoordinateAsString);
+    }
+
+    /**
+     * Helper method doing all stuff needed to serialize and look for shared objects etc...
+     * Needed in setters and initializer
+     */
+    private static String fetchOrSetCartesianCoordinate(CartesianCoordinate cartesianCoordinate){
+        String cartesianCoordinateAsString = CoordinateUtil.serializeCartesianCoordinate(cartesianCoordinate);
+        return CoordinateUtil.getString(cartesianCoordinateAsString, cartesianCoordinates, cartesianCoordinate.hashCode());
     }
 
     /**
