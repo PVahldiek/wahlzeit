@@ -110,7 +110,7 @@ public class Photo extends DataObject {
 	 * Location object, needs to be set in the UI f.e. (here we can ignore)
 	 * Currently every photo has this coordinate (to prevent Null-Pointer)
 	 */
-	protected Location location = new Location(new CartesianCoordinate(3, 5, 7));
+	protected Location location = new Location(CartesianCoordinate.createCartesianCoordinate(3, 5, 7));
 
 	/**
 	 *
@@ -175,10 +175,10 @@ public class Photo extends DataObject {
 		String[] locationSplit = rset.getString("location").replace("(", "").replace(")", "").split("/");
 		if(locationSplit[0].startsWith("s")){
 			// Spheric
-			location = new Location(new SphericCoordinate(Double.parseDouble(locationSplit[0].replace("s", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
+			location = new Location(SphericCoordinate.createSphericCoordinate(Double.parseDouble(locationSplit[0].replace("s", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
 		} else{
 			// Cartesian
-			location = new Location(new CartesianCoordinate(Double.parseDouble(locationSplit[0].replace("c", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
+			location = new Location(CartesianCoordinate.createCartesianCoordinate(Double.parseDouble(locationSplit[0].replace("c", "")), Double.parseDouble(locationSplit[1]), Double.parseDouble(locationSplit[2])));
 		}
 	}
 	

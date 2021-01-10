@@ -56,7 +56,7 @@ public class CartesianCoordinate extends AbstractCoordinate{
         } else if(x < 0 && y < 0){
             phi = Math.atan(y/x) - Math.PI;
         }
-        return new SphericCoordinate(phi, theta, radius);
+        return SphericCoordinate.createSphericCoordinate(phi, theta, radius);
     }
 
     /**

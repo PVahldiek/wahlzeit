@@ -47,7 +47,7 @@ public class PhotoTest extends TestCase {
         Photo p = new Photo();
         // That URL is valid string - otherwise error occurs
         p.setOwnerHomePage(new URL("https://localhost:8080"));
-        Location location = new Location(new SphericCoordinate(2,2, 2));
+        Location location = new Location(SphericCoordinate.createSphericCoordinate(2,2, 2));
         p.setLocation(location);
         // Verify that exactly 5 times getString is called -> Previously it was 4 times
         p.writeOn(rsetWrite);
@@ -59,7 +59,7 @@ public class PhotoTest extends TestCase {
         Photo p = new Photo();
         // That URL is valid string - otherwise error occurs
         p.setOwnerHomePage(new URL("https://localhost:8080"));
-        Location location = new Location(new CartesianCoordinate(2,2, 2));
+        Location location = new Location(CartesianCoordinate.createCartesianCoordinate(2,2, 2));
         p.setLocation(location);
         // Verify that exactly 5 times getString is called -> Previously it was 4 times
         p.writeOn(rsetWrite);

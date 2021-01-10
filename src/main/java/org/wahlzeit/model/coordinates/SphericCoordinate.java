@@ -38,7 +38,7 @@ public class SphericCoordinate extends AbstractCoordinate{
         if(radius < 0){
             throw new IllegalStateException("Error in radius convention (Should not be smaller than zero)");
         }
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.createCartesianCoordinate(x, y, z);
     }
 
     /**
