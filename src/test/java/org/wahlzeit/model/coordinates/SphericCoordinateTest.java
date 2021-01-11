@@ -133,4 +133,36 @@ public class SphericCoordinateTest {
         SphericCoordinate p1 = SphericCoordinate.createSphericCoordinate(1, 0, 0 );
         p1.setPhi(10);
     }
+
+    @Test
+    public void testSerialize(){
+        SphericCoordinate s1 = SphericCoordinate.createSphericCoordinate(0.02, 0.2, 0.1 );
+        String expected = CoordinateUtil.serializeSphericCoordinate(s1);
+        Assert.assertTrue(expected.equals("0.02/0.2/0.1"));
+    }
+
+    @Test
+    public void testSerializeDecimal(){
+        SphericCoordinate s1 = SphericCoordinate.createSphericCoordinate(1, 0.0007, 0.3 );
+        String expected = CoordinateUtil.serializeSphericCoordinate(s1);
+        Assert.assertTrue(expected.equals("1.0/7.0E-4/0.3"));
+    }
+
+    @Test
+    public void testDeserialize(){
+        String SphericCoordinateAsString = "1.0/0.0/1.0";
+        SphericCoordinate s1 = CoordinateUtil.deSerializeSphericCoordinate(SphericCoordinateAsString);
+        Assert.assertTrue(s1.getPhi() == 1.0);
+        Assert.assertTrue(s1.getTheta() == 0.0);
+        Assert.assertTrue(s1.getRadius() == 1.0);
+    }
+
+    @Test
+    public void testDeserializeDecimal(){
+        String SphericCoordinateAsString = "1.0/7.0E-4/1.0";
+        SphericCoordinate s1 = CoordinateUtil.deSerializeSphericCoordinate(SphericCoordinateAsString);
+        Assert.assertTrue(s1.getPhi() == 1.0);
+        Assert.assertTrue(s1.getTheta() == 0.0007);
+        Assert.assertTrue(s1.getRadius() == 1.0);
+    }
 }

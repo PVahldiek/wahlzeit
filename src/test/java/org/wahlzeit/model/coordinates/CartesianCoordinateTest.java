@@ -109,4 +109,42 @@ public class CartesianCoordinateTest {
         CartesianCoordinate c1 = CartesianCoordinate.createCartesianCoordinate(1, 0,0);
         c1.setX(Double.NaN);
     }
+
+    @Test
+    public void testHashMapOnCreation(){
+        CartesianCoordinate c1 = CartesianCoordinate.createCartesianCoordinate(1, 0, 0 );
+        CartesianCoordinate c2 = CartesianCoordinate.createCartesianCoordinate(2, 2, 3);
+    }
+
+    @Test
+    public void testSerialize(){
+        CartesianCoordinate c1 = CartesianCoordinate.createCartesianCoordinate(1, 0, 0 );
+        String expected = CoordinateUtil.serializeCartesianCoordinate(c1);
+        Assert.assertTrue(expected.equals("1.0/0.0/0.0"));
+    }
+
+    @Test
+    public void testSerializeDecimal(){
+        CartesianCoordinate c1 = CartesianCoordinate.createCartesianCoordinate(1, 0.0007, 0 );
+        String expected = CoordinateUtil.serializeCartesianCoordinate(c1);
+        Assert.assertTrue(expected.equals("1.0/7.0E-4/0.0"));
+    }
+
+    @Test
+    public void testDeserialize(){
+        String CartesianCoordinateAsString = "1.0/0.0/1.0";
+        CartesianCoordinate c1 = CoordinateUtil.deSerializeCartesianCoordinate(CartesianCoordinateAsString);
+        Assert.assertTrue(c1.getX() == 1.0);
+        Assert.assertTrue(c1.getY() == 0.0);
+        Assert.assertTrue(c1.getZ() == 1.0);
+    }
+
+    @Test
+    public void testDeserializeDecimal(){
+        String CartesianCoordinateAsString = "1.0/0.0/7.0E-4";
+        CartesianCoordinate c1 = CoordinateUtil.deSerializeCartesianCoordinate(CartesianCoordinateAsString);
+        Assert.assertTrue(c1.getX() == 1.0);
+        Assert.assertTrue(c1.getY() == 0.0);
+        Assert.assertTrue(c1.getZ() == 0.0007);
+    }
 }
