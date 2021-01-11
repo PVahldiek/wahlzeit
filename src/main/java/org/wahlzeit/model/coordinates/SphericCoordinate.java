@@ -56,8 +56,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate setPhi(double newPhi) throws AssertionError {
         assertClassInvariants();
         SphericCoordinate sphericCoordinate = new SphericCoordinate(newPhi, theta, radius);
-        SphericCoordinate oldSphericCoordinate = new SphericCoordinate(phi, theta, radius);
-        String sphericCoordinateAsString = fetchAndDeleteSphericCoordinate(sphericCoordinate, oldSphericCoordinate);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
@@ -77,8 +76,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate setTheta(double newTheta) throws AssertionError {
         assertClassInvariants();
         SphericCoordinate sphericCoordinate = new SphericCoordinate(phi, newTheta, radius);
-        SphericCoordinate oldSphericCoordinate = new SphericCoordinate(phi, theta, radius);
-        String sphericCoordinateAsString = fetchAndDeleteSphericCoordinate(sphericCoordinate, oldSphericCoordinate);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
@@ -98,8 +96,7 @@ public class SphericCoordinate extends AbstractCoordinate{
     public SphericCoordinate setRadius(double newRadius) throws AssertionError {
         assertClassInvariants();
         SphericCoordinate sphericCoordinate = new SphericCoordinate(phi, theta, newRadius);
-        SphericCoordinate oldSphericCoordinate = new SphericCoordinate(phi, theta, radius);
-        String sphericCoordinateAsString = fetchAndDeleteSphericCoordinate(sphericCoordinate, oldSphericCoordinate);
+        String sphericCoordinateAsString = fetchOrSetSphericCoordinate(sphericCoordinate);
         assertClassInvariants();
         return CoordinateUtil.deSerializeSphericCoordinate(sphericCoordinateAsString);
     }
@@ -119,16 +116,6 @@ public class SphericCoordinate extends AbstractCoordinate{
     private static String fetchOrSetSphericCoordinate(SphericCoordinate sphericCoordinate){
         String sphericCoordinateAsString = CoordinateUtil.serializeSphericCoordinate(sphericCoordinate);
         return CoordinateUtil.getString(sphericCoordinateAsString, sphericCoordinates, sphericCoordinate.hashCode());
-    }
-
-    /**
-     * Helper method doing all stuff needed to serialize and look for shared objects etc...
-     * Needed in setters, also deletes the old object in hashMap
-     */
-    private static String fetchAndDeleteSphericCoordinate(SphericCoordinate sphericCoordinate, SphericCoordinate oldSphericCoordinate){
-        String sphericCoordinateAsString = CoordinateUtil.serializeSphericCoordinate(sphericCoordinate);
-        String oldSphericCoordinateAsString = CoordinateUtil.serializeSphericCoordinate(oldSphericCoordinate);
-        return CoordinateUtil.fetchAndDeleteString(sphericCoordinateAsString, oldSphericCoordinateAsString, sphericCoordinates, sphericCoordinate.hashCode(), oldSphericCoordinateAsString.hashCode());
     }
 
     /**
