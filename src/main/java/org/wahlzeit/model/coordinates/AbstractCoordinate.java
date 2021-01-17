@@ -13,9 +13,6 @@ import java.util.Objects;
 @PatternInstance(patternName = "Flyweight", participants = {"CartesianCoordinate", "SphericCoordinate"})
 public abstract class AbstractCoordinate implements Coordinate{
 
-    public static HashMap<Integer, String> sphericCoordinates = new HashMap<>();
-    public static HashMap<Integer, String> cartesianCoordinates = new HashMap<>();
-
     /**
      * Builds a CartesianCoordinate with the current SphericCoordinate
      * if object is already a CartesianCoordinate, it returns the instance

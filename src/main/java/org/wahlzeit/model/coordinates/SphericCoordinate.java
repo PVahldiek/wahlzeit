@@ -2,6 +2,8 @@ package org.wahlzeit.model.coordinates;
 
 import org.wahlzeit.model.PatternInstance;
 
+import java.util.HashMap;
+
 @PatternInstance(patternName = "Flyweight", participants = {"CartesianCoordinate", "SphericCoordinate"})
 public class SphericCoordinate extends AbstractCoordinate{
 
@@ -11,6 +13,11 @@ public class SphericCoordinate extends AbstractCoordinate{
     private final double phi;
     private final double theta;
     private final double radius;
+
+    /**
+     *
+     */
+    public static HashMap<Integer, String> sphericCoordinates = new HashMap<>();
 
     /**
      * @methodtype constructor
