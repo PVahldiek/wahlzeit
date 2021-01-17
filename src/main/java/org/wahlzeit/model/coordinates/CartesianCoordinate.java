@@ -1,5 +1,8 @@
 package org.wahlzeit.model.coordinates;
 
+import org.wahlzeit.model.PatternInstance;
+
+@PatternInstance(patternName = "Flyweight", participants = {"CartesianCoordinate", "SphericCoordinate"})
 public class CartesianCoordinate extends AbstractCoordinate{
 
     /**

@@ -4,7 +4,7 @@ import org.wahlzeit.services.SysLog;
 import java.io.File;
 import java.io.IOException;
 
-
+@PatternInstance(patternName = "Singleton", participants = "HolidayPhotoManager")
 public class HolidayPhotoManager extends PhotoManager{
 
     /**

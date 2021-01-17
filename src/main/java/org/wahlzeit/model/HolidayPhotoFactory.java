@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@PatternInstance(patternName = "Abstract Factory", participants = {"HolidayPhoto", "HolidayPhotoFactory"})
 public class HolidayPhotoFactory extends PhotoFactory{
 
     /**

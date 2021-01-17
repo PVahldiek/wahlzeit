@@ -26,6 +26,7 @@ import java.sql.*;
 /**
  * A photo case is a case where someone flagged a photo as inappropriate.
  */
+@PatternInstance(patternName = "AbstractFactory", participants = {"PhotoCase", "PhotoCaseManager"})
 public class PhotoCase extends Case {
 	
 	/**

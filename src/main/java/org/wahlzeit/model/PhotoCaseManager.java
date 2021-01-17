@@ -28,6 +28,7 @@ import org.wahlzeit.services.*;
 /**
  * The photo case manager provides access to and manages persistent photo cases.
  */
+@PatternInstance(patternName = "AbstractFactory", participants = {"PhotoCase", "PhotoCaseManager"})
 public class PhotoCaseManager extends ObjectManager {
 	
 	/**
