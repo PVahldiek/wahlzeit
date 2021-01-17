@@ -27,8 +27,9 @@ import org.wahlzeit.services.*;
 /**
  * An Abstract Factory for creating photos and related objects.
  */
+@PatternInstance(patternName = "Abstract Factory", participants = {"AbstractFactory", "ConcreteFactory"})
 public class PhotoFactory {
-	
+
 	/**
 	 * Hidden singleton instance; needs to be initialized from the outside.
 	 */
