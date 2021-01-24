@@ -1,5 +1,6 @@
 package org.wahlzeit.model;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Holiday class representing holidays
@@ -11,6 +12,22 @@ public class Holiday {
     protected String country;
 
     /**
+     * Type-Object
+     */
+    protected HolidayType type = null;
+
+    /**
+     * Synchronized counter
+     */
+    private static AtomicLong idCounter = new AtomicLong();
+
+
+    /**
+     * HolidayManager for Type-Object
+     */
+    protected HolidayManager manager;
+
+    /**
      *
      * @methodtype constructor
      */
@@ -19,6 +36,19 @@ public class Holiday {
         costs = newCosts;
         country = newCountry;
         assertClassInvariants();
+    }
+
+    /**
+     *
+     * @methodtype constructor
+     */
+    public Holiday(HolidayType holidayType) throws AssertionError{
+        this.type = holidayType;
+    }
+
+    public static long getId()
+    {
+        return idCounter.getAndIncrement();
     }
 
     /**
@@ -115,5 +145,9 @@ public class Holiday {
      */
     protected void assertClassInvariants() throws AssertionError{
         assert !(days < 0) && !(costs < 0);
+    }
+
+    public HolidayType getType() {
+        return type;
     }
 }
