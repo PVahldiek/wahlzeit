@@ -27,7 +27,6 @@ public class Holiday extends DataObject {
     private static AtomicLong idCounter = new AtomicLong();
     private long id = 0;
 
-
     /**
      * HolidayManager for Type-Object
      */
@@ -109,6 +108,23 @@ public class Holiday extends DataObject {
     }
 
     /**
+     *
+     * @methodtype get
+     */
+    public HolidayType getType() {
+        return type;
+    }
+
+    /**
+     *
+     * @methodtype get
+     */
+    public long getId() {
+        long id = this.id;
+        return id;
+    }
+
+    /**
      * Checks if two holidays are equal
      * @methodtype boolean
      */
@@ -152,14 +168,10 @@ public class Holiday extends DataObject {
         assert !(days < 0) && !(costs < 0);
     }
 
-    public HolidayType getType() {
-        return type;
-    }
-
-    public long getId() {
-        long id = this.id;
-        return id;
-    }
+    /**
+     *
+     * Methods from DataObject
+     */
 
     @Override
     public String getIdAsString() {
