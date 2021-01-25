@@ -47,4 +47,20 @@ public class HolidayTypeTest {
         Holiday holiday = holidayManager.createHoliday("IceLand");
         Assert.assertTrue(holiday.getType().hasInstance(holiday));
     }
+
+    @Test
+    public void testHierarchy() {
+        HolidayManager holidayManager = HolidayManager.getInstance();
+        HolidayType top = new HolidayType("top");
+        HolidayType mid = new HolidayType("mid");
+        HolidayType bot = new HolidayType("bot");
+        top.addSubType(mid);
+        mid.addSubType(bot);
+
+        Assert.assertFalse(top.isSubType());
+        Assert.assertTrue(mid.isSubType());
+        Assert.assertTrue(mid.getSuperType().equals(top));
+        Assert.assertTrue(bot.isSubType());
+        Assert.assertTrue(bot.getSuperType().equals(mid));
+    }
 }
