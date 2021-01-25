@@ -1,18 +1,23 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.services.ObjectManager;
+import org.wahlzeit.services.Persistent;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
  * A holiday manager for creating and operating Holiday Objects
  */
 @PatternInstance(patternName = "Singleton", participants = "PhotoManager")
-public class HolidayManager {
+public class HolidayManager extends ObjectManager {
 
-    protected static HashMap<Integer, HolidayType> holidayTypes = new HashMap<>();
+    protected static HashMap<String, HolidayType> holidayTypes = new HashMap<>();
     protected static HashMap<Integer, Holiday> holidays = new HashMap<>();
     protected static HolidayManager instance = null;
 
-    private HolidayManager() {
+    protected HolidayManager() {
         // do nothing
     }
 
@@ -39,5 +44,18 @@ public class HolidayManager {
         if(holidayTypes.get(typename) == null){
             throw new IllegalArgumentException("HolidayType not found");
         }
+    }
+
+    public HashMap<String, HolidayType> getHolidayTypes(){
+        return holidayTypes;
+    }
+
+    public HashMap<Integer, Holiday> getHolidays(){
+        return holidays;
+    }
+
+    @Override
+    protected Persistent createObject(ResultSet rset) throws SQLException {
+        return createHoliday(rset.getObject("holidayType", HolidayType.class).getTypeName());
     }
 }

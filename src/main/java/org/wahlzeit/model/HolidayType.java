@@ -1,9 +1,9 @@
 package org.wahlzeit.model;
-import org.wahlzeit.services.DataObject;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Type-Object class for Holiday
@@ -13,9 +13,17 @@ public class HolidayType {
     protected HolidayType superType = null;
     protected Set<HolidayType> subTypes = new HashSet<HolidayType>();
     protected HolidayManager manager;
+    protected String typeName;
 
-    public HolidayType(){
+    /**
+     * Synchronized counter
+     */
+    private static AtomicLong idCounter = new AtomicLong();
+
+    public HolidayType(String typeName){
+        this.typeName = typeName;
         manager = HolidayManager.getInstance();
+        manager.getHolidayTypes().put(typeName, this);
     }
 
     public Holiday createInstance(){
@@ -45,6 +53,10 @@ public class HolidayType {
 
     public HolidayType getSuperType() {
         return superType;
+    }
+
+    public String getTypeName() {
+        return typeName;
     }
 
     public boolean hasInstance(Holiday holiday) {

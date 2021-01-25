@@ -25,6 +25,7 @@ public class Holiday extends DataObject {
      * Synchronized counter
      */
     private static AtomicLong idCounter = new AtomicLong();
+    private long id = 0;
 
 
     /**
@@ -40,6 +41,7 @@ public class Holiday extends DataObject {
         days = newDays;
         costs = newCosts;
         country = newCountry;
+        id = idCounter.incrementAndGet();
         assertClassInvariants();
     }
 
@@ -50,6 +52,8 @@ public class Holiday extends DataObject {
     public Holiday(HolidayType holidayType) throws AssertionError{
         this.type = holidayType;
         this.manager = HolidayManager.getInstance();
+        id = idCounter.incrementAndGet();
+        manager.getHolidays().put((int)getId(), this);
     }
 
     /**
@@ -152,27 +156,34 @@ public class Holiday extends DataObject {
         return type;
     }
 
-    public static long getId() {
-        return idCounter.getAndIncrement();
+    public long getId() {
+        long id = this.id;
+        return id;
     }
 
     @Override
     public String getIdAsString() {
-        return null;
+        return String.valueOf(id);
     }
 
     @Override
     public void readFrom(ResultSet rset) throws SQLException {
-
+        id = Long.parseLong(rset.getString("id"));
+        days = rset.getInt("holiday_days");
+        costs = rset.getInt("holiday_costs");
+        country = rset.getString("holiday_country");
     }
 
     @Override
     public void writeOn(ResultSet rset) throws SQLException {
-
+        rset.updateString("id", String.valueOf(id));
+        rset.updateString("holiday_days", String.valueOf(days));
+        rset.updateString("holiday_days", String.valueOf(costs));
+        rset.updateString("holiday_days", String.valueOf(country));
     }
 
     @Override
     public void writeId(PreparedStatement stmt, int pos) throws SQLException {
-
+        stmt.setNString(pos, String.valueOf(id));
     }
 }
