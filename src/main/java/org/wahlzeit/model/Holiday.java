@@ -1,11 +1,16 @@
 package org.wahlzeit.model;
+import org.wahlzeit.services.DataObject;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Holiday class representing holidays
  */
-public class Holiday {
+public class Holiday extends DataObject {
 
     protected int days;
     protected int costs;
@@ -44,11 +49,7 @@ public class Holiday {
      */
     public Holiday(HolidayType holidayType) throws AssertionError{
         this.type = holidayType;
-    }
-
-    public static long getId()
-    {
-        return idCounter.getAndIncrement();
+        this.manager = HolidayManager.getInstance();
     }
 
     /**
@@ -149,5 +150,29 @@ public class Holiday {
 
     public HolidayType getType() {
         return type;
+    }
+
+    public static long getId() {
+        return idCounter.getAndIncrement();
+    }
+
+    @Override
+    public String getIdAsString() {
+        return null;
+    }
+
+    @Override
+    public void readFrom(ResultSet rset) throws SQLException {
+
+    }
+
+    @Override
+    public void writeOn(ResultSet rset) throws SQLException {
+
+    }
+
+    @Override
+    public void writeId(PreparedStatement stmt, int pos) throws SQLException {
+
     }
 }
